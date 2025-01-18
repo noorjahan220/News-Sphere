@@ -1,0 +1,352 @@
+[
+  {
+    "_id": "64bfb82b65c9d00336d3d00c",
+    "others_info": {
+      "is_todays_pick": false,
+      "is_trending": false
+    },
+    "category_id": "1",
+    "rating": {
+      "number": 4.5,
+      "badge": "Excellent"
+    },
+    "total_view": 980,
+    "title": "Joe Biden announces $3 billion in Ukraine weapons aid",
+    "author": {
+      "name": "system",
+      "published_date": "2022-08-24 23:15:00",
+      "img": "https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dXNlcnxlbnwwfHwwfHw%3D&w=1000&q=80"
+    },
+    "thumbnail_url": "https://i.ibb.co/HXC719r/unsplash-Eh-Tc-C9s-YXsw-19.png",
+    "image_url": "https://i.ibb.co/T0PnZxD/unsplash-Eh-Tc-C9s-YXsw-8.png",
+    "details": "WASHINGTON: President Joe Biden announced nearly $3 billion in military aid to Kyiv on Wednesday -- the biggest US package so far -- to mark Ukraine's independence day, six months after Russia invaded the country. The package aims to fortify Ukraine's military over the coming two years by committing the production and... read full story",
+    "publisher": "TechDaily",
+    "tags": ["Technology", "Innovation"]
+  },
+  {
+    "_id": "64bfb82b65c9d00336d3d00d",
+    "others_info": {
+      "is_todays_pick": false,
+      "is_trending": true
+    },
+    "category_id": "2",
+    "rating": {
+      "number": 4.5,
+      "badge": "Excellent"
+    },
+    "total_view": null,
+    "title": "Tucker Carlson: Putin Winning in Ukraine, Biden Hurting West",
+    "author": {
+      "name": null,
+      "published_date": "2022-08-30 15:00:04",
+      "img": "https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dXNlcnxlbnwwfHwwfHw%3D&w=1000&q=80"
+    },
+    "thumbnail_url": "https://i.ibb.co/k8XBcMX/unsplash-Eh-Tc-C9s-YXsw-15.png",
+    "image_url": "https://i.ibb.co/BZZ5WKv/unsplash-Eh-Tc-C9s-YXsw-4.png",
+    "details": "Fox News's top-rated host, Tucker Carlson, claimed on Monday night that Russian President Vladimir Putin is in fact winning the war in Ukraine, and President Joe Biden's insistence that Putin surrenders his campaign to take over Ukraine is actually evidence Biden's ultimate goal is to 'destroy the West.' Carlson arrived at his bizarre claim after railing against European and American military aid to Ukraine. 'Italy's Ukraine funding is a lot, but it's not quite as much as France. France has sent more than $2 billion U.",
+    "publisher": "GreenEarth",
+    "tags": ["Technology", "Innovation"]
+  },
+  {
+    "_id": "64bfb82b65c9d00336d3d00e",
+    "others_info": {
+      "is_todays_pick": false,
+      "is_trending": true
+    },
+    "category_id": "3",
+    "rating": {
+      "number": 4.5,
+      "badge": "Excellent"
+    },
+    "total_view": 111,
+    "title": "America Imported Over $6 Billion in Goods From Russia Since Ukraine Invasion",
+    "author": {
+      "name": "system",
+      "published_date": null,
+      "img": "https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dXNlcnxlbnwwfHwwfHw%3D&w=1000&q=80"
+    },
+    "thumbnail_url": "https://i.ibb.co/1vcgPzg/unsplash-Eh-Tc-C9s-YXsw-12.png",
+    "image_url": "https://i.ibb.co/xh57pkr/unsplash-Eh-Tc-C9s-YXsw-1.png",
+    "details": "To receive Global Research's Daily Newsletter (selected articles), click here. Follow us on Instagram and Twitter and subscribe to our Telegram Channel. Feel free to repost and share widely Global Research articles. *** In response to Russia's attack on Ukraine, US President Joe Biden vowed to isolate... read full story",
+    "publisher": "Wanderlust",
+    "tags": ["Technology", "Innovation"]
+  },
+  {
+    "_id": "64bfb82b65c9d00336d3d00f",
+    "others_info": {
+      "is_todays_pick": true,
+      "is_trending": false
+    },
+    "category_id": "4",
+    "rating": {
+      "number": 4.5,
+      "badge": "Excellent"
+    },
+    "total_view": 733,
+    "title": "Shaquille O’Neal auctions a 1000 size 22 Reeboks for $999.32 each!",
+    "author": {
+      "name": "Theo Minh Châu",
+      "published_date": "2022-08-25 06:03:00",
+      "img": "https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dXNlcnxlbnwwfHwwfHw%3D&w=1000&q=80"
+    },
+    "thumbnail_url": "https://i.ibb.co/j86wjDW/unsplash-Eh-Tc-C9s-YXsw-20.png",
+    "image_url": "https://i.ibb.co/WNrB5d7/unsplash-Eh-Tc-C9s-YXsw-9.png",
+    "details": "1,000 pairs of autographed Size 22 Reeboks were made available thanks to a partnership between Shaquille O’Neal and Steiner Sports...",
+    "publisher": "AutoWorld",
+    "tags": ["Technology", "Innovation"]
+  },
+
+
+
+
+
+
+  {
+    "_id": "e342b6c0c8efc",
+    "others_info": {
+      "is_todays_pick": false,
+      "is_trending": false
+    },
+    "category_id": "4",
+    "rating": {
+      "number": 4.5,
+      "badge": "Excellent"
+    },
+    "total_view": 733,
+    "title": "George Russell wears $110 Daniel Ricciardo merchandise to Zandvoort paddock ahead of Dutch GP",
+    "author": {
+      "name": "Theo Minh Châu",
+      "published_date": "2022-08-25 06:03:00",
+      "img": "https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dXNlcnxlbnwwfHwwfHw%3D&w=1000&q=80"
+    },
+    "thumbnail_url": "https://i.ibb.co/df3gJ1b/unsplash-Eh-Tc-C9s-YXsw-13.png",
+    "image_url": "https://i.ibb.co/Z2JjRnF/unsplash-Eh-Tc-C9s-YXsw-2.png",
+    "details": "Mercedes’ George Russell arrived at the Zandvoort paddock wearing a Daniel Ricciardo merchandise ahead of the Dutch GP...",
+    "publisher": "Wellness Weekly",
+    "tags": ["Technology", "Innovation"]
+  },
+  {
+    "_id": "f06f8cc035b04b",
+    "others_info": {
+      "is_todays_pick": false,
+      "is_trending": true
+    },
+    "category_id": "5",
+    "rating": {
+      "number": 4.5,
+      "badge": "Excellent"
+    },
+    "total_view": 127,
+    "title": "Up Late with Ben Harvey: Why Troy Mercanti needs to start an OnlyFans account",
+    "author": {
+      "name": "Ukrainska Pravda",
+      "published_date": "2022-08-25 18:53:49",
+      "img": "https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dXNlcnxlbnwwfHwwfHw%3D&w=1000&q=80"
+    },
+    "thumbnail_url": "https://i.ibb.co/dr4TRY4/unsplash-Eh-Tc-C9s-YXsw-21.png",
+    "image_url": "https://i.ibb.co/vz5K0FB/unsplash-Eh-Tc-C9s-YXsw-10.png",
+    "details": "On Thursday night’s episode of Up Late, Ben Harvey has suggested Troy Mercanti start an OnlyFans account if he wishes to challenge anti-consorting laws...",
+    "publisher": "Mindful Life",
+    "tags": ["Technology", "Innovation"]
+  },
+  {
+    "_id": "cd2b53655737cc",
+    "others_info": {
+      "is_todays_pick": false,
+      "is_trending": true
+    },
+    "category_id": "2",
+    "rating": {
+      "number": 4.5,
+      "badge": "Excellent"
+    },
+    "total_view": 700,
+    "title": "Halo, GTA Vice City Actor Directing Movie About Hunter Biden",
+    "author": {
+      "name": "Daniel Deangelo",
+      "published_date": "2022-08-30 20:02:52",
+      "img": "https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dXNlcnxlbnwwfHwwfHw%3D&w=1000&q=80"
+    },
+    "thumbnail_url": "https://i.ibb.co/QnwC4sG/unsplash-Eh-Tc-C9s-YXsw-11.png",
+    "image_url": "https://i.ibb.co/M23fhxm/unsplash-Eh-Tc-C9s-YXsw.png",
+    "details": "Robert Davi will be a pretty familiar face to fans of entertainment from the 1980s and 1990s, with supporting roles in The Goonies, Die Hard, and many other films and TV shows...",
+    "publisher": "TechWorld",
+    "tags": ["Technology", "Innovation"]
+  },
+  {
+    "_id": "4e6092d54c18f",
+    "others_info": {
+      "is_todays_pick": false,
+      "is_trending": false
+    },
+    "category_id": "7",
+    "rating": {
+      "number": 4.5,
+      "badge": "Excellent"
+    },
+    "total_view": 300,
+    "title": "Joe Biden announces $3B in new military aid to Ukraine",
+    "author": {
+      "name": "",
+      "published_date": "2022-08-24 22:30:00",
+      "img": "https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dXNlcnxlbnwwfHwwfHw%3D&w=1000&q=80"
+    },
+    "thumbnail_url": "https://i.ibb.co/QnwC4sG/unsplash-Eh-Tc-C9s-YXsw-11.png",
+    "image_url": "https://i.ibb.co/M23fhxm/unsplash-Eh-Tc-C9s-YXsw.png",
+    "details": "Washington, Aug 24 (Prensa Latina) President Joe Biden has announced he will allot nearly billion in military aid to Kyiv...",
+    "publisher": "Entrepreneur Times",
+    "tags": ["Technology", "Innovation"]
+  },
+  {
+    "_id": "7c4dfea0fafdd",
+    "others_info": {
+      "is_todays_pick": false,
+      "is_trending": true
+    },
+    "category_id": "1",
+    "rating": {
+      "number": 4.5,
+      "badge": "Excellent"
+    },
+    "total_view": 0,
+    "title": "Biden announces $3 billion Ukraine military aid package on its Independence Day",
+    "author": {
+      "name": "Reuters",
+      "published_date": "2022-08-25 03:09:16",
+      "img": "https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dXNlcnxlbnwwfHwwfHw%3D&w=1000&q=80"
+    },
+    "thumbnail_url": "https://i.ibb.co/QnwC4sG/unsplash-Eh-Tc-C9s-YXsw-11.png",
+    "image_url": "https://i.ibb.co/M23fhxm/unsplash-Eh-Tc-C9s-YXsw.png",
+    "details": "Published: 25 Aug 2022, 09:09. US president Joe Biden speaks as he attends the first virtual meeting of the I2U2 group...",
+    "publisher": "Global Insights",
+    "tags": ["Technology", "Innovation"]
+  },
+  {
+    "_id": "30af81e91ab3e",
+    "others_info": {
+      "is_todays_pick": false,
+      "is_trending": true
+    },
+    "category_id": "1",
+    "rating": {
+      "number": 4.5,
+      "badge": "Excellent"
+    },
+    "total_view": 320,
+    "title": "U.S. announces largest weapons package for Ukraine",
+    "author": {
+      "name": "John Pike",
+      "published_date": "2022-08-25 07:35:11",
+      "img": "https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dXNlcnxlbnwwfHwwfHw%3D&w=1000&q=80"
+    },
+    "thumbnail_url": "https://i.ibb.co/1vcgPzg/unsplash-Eh-Tc-C9s-YXsw-12.png",
+    "image_url": "https://i.ibb.co/PxC67LV/unsplash-Eh-Tc-C9s-YXsw-1.png",
+    "details": "The White House has approved one of its largest military packages...",
+    "publisher": "Economic Trends",
+    "tags": ["Technology", "Innovation"]
+  },
+
+
+
+
+
+
+
+
+  {
+    "_id": "df11ff9feefc",
+    "others_info": {
+      "is_todays_pick": false,
+      "is_trending": false
+    },
+    "category_id": "2",
+    "rating": {
+      "number": 4.5,
+      "badge": "Excellent"
+    },
+    "total_view": 552,
+    "title": "US commander to train Ukraine military",
+    "author": {
+      "name": "System",
+      "published_date": "2022-08-27 05:38:02",
+      "img": "https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dXNlcnxlbnwwfHwwfHw%3D&w=1000&q=80"
+    },
+    "thumbnail_url": "https://i.ibb.co/dr4TRY4/unsplash-Eh-Tc-C9s-YXsw-21.png",
+    "image_url": "https://i.ibb.co/vz5K0FB/unsplash-Eh-Tc-C9s-YXsw-10.png",
+    "details": "Agencies | Washington The Daily Tribune – www.newsofbahrain.com The US President Joe Biden plans to appoint a general in Ukraine to lead the military training and relief efforts, the Wall Street Journal reported citing US officials. The officials indicated that in the coming weeks, the US administration also plans to name its military mission to support Ukraine. The name of the operation formally recognizes US military support, akin to how the Pentagon dubbed the missions in Iraq and Afghanistan Operation Iraqi Freedom, Enduring Freedom, and 'Guardian of Freedom'.",
+    "publisher": "NextGen Media",
+    "tags": ["Science", "Discovery"]
+  },
+  {
+    "_id": "919db97c34e07",
+    "others_info": {
+      "is_todays_pick": false,
+      "is_trending": true
+    },
+    "category_id": "1",
+    "rating": {
+      "number": 4.5,
+      "badge": "Excellent"
+    },
+    "total_view": 89,
+    "title": "U.S. concerned about India's participation in Russia military exercises",
+    "author": {
+      "name": "MarketScreener",
+      "published_date": "2022-08-30 18:05:42",
+      "img": "https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dXNlcnxlbnwwfHwwfHw%3D&w=1000&q=80"
+    },
+    "thumbnail_url": "https://i.ibb.co/HXC719r/unsplash-Eh-Tc-C9s-YXsw-19.png",
+    "image_url": "https://i.ibb.co/T0PnZxD/unsplash-Eh-Tc-C9s-YXsw-8.png",
+    "details": "Last month, Moscow announced plans to hold Vostok (East) exercises from Aug. 30 to Sept. 5, even as it wages a costly war in Ukraine. The military exercises are expected to include China, India, Belarus, Mongolia, Tajikistan, and other countries, China's defense ministry has said. Asked about India's participation, Jean-Pierre told reporters as President Joe Biden flew to Pennsylvania that the United States was concerned about any country participating in military exercises with Russia while it is at war with Ukraine.",
+    "publisher": "BrightMind News",
+    "tags": ["Business", "Entrepreneurship"]
+  },
+  {
+    "_id": "374df11ae3d9b",
+    "others_info": {
+      "is_todays_pick": false,
+      "is_trending": true
+    },
+    "category_id": "1",
+    "rating": {
+      "number": 4.5,
+      "badge": "Excellent"
+    },
+    "total_view": 798,
+    "title": "Zelensky says he had ‘great conversation' with Biden, discussed Kiev's further steps",
+    "author": {
+      "name": "System",
+      "published_date": "2022-08-25 18:45:00",
+      "img": "https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dXNlcnxlbnwwfHwwfHw%3D&w=1000&q=80"
+    },
+    "thumbnail_url": "https://i.ibb.co/HXC719r/unsplash-Eh-Tc-C9s-YXsw-19.png",
+    "image_url": "https://i.ibb.co/T0PnZxD/unsplash-Eh-Tc-C9s-YXsw-8.png",
+    "details": "KIEV, August 25. /TASS/. Ukrainian President Vladimir Zelensky said he had a great phone conversation with his US counterpart Joe Biden and discussed with him Ukraine's further actions on Thursday. “Had a great conversation with @POTUS. Thanked for the unwavering U.S. support for Ukrainian people - security and financial,” he wrote on Twitter. “We discussed Ukraine's further steps,” Zelensky added. On Wednesday, US President Joe Biden announced $2.98 billion in military aid to Ukraine. On the same day, Ukrainian Prime Minister Denis Shmygal reported that the Ukrainian state budget received grant aid from the US in the amount of $3 billion.",
+    "publisher": "Explore Today",
+    "tags": ["Travel", "Adventure"]
+  },
+  {
+    "_id": "acb9b6785b626",
+    "others_info": {
+      "is_todays_pick": false,
+      "is_trending": true
+    },
+    "category_id": "3",
+    "rating": {
+      "number": 4.5,
+      "badge": "Excellent"
+    },
+    "total_view": 879,
+    "title": "US Pledges $3 Bln In Additional Security Assistance For Ukraine",
+    "author": {
+      "name": "RTTNews",
+      "published_date": "2022-08-25 11:53:13",
+      "img": "https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dXNlcnxlbnwwfHwwfHw%3D&w=1000&q=80"
+    },
+    "thumbnail_url": "https://i.ibb.co/1vcgPzg/unsplash-Eh-Tc-C9s-YXsw-12.png",
+    "image_url": "https://i.ibb.co/PxC67LV/unsplash-Eh-Tc-C9s-YXsw-1.png",
+    "details": "The United States has pledged nearly $3 billion in additional security assistance for Ukraine to help fight Russia's invasion as well as enable the country to defend itself over the long term. The latest aid package, under the Ukraine Security Assistance Initiative (USAI), was announced by President Joe Biden on Ukraine's Independence Day. This will allow Ukraine to acquire air defense systems.",
+    "publisher": "Energy Today",
+    "tags": ["Environment", "Sustainability"]
+  }
+]
