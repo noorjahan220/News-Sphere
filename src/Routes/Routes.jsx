@@ -6,6 +6,11 @@ import Main from "../Layout/Main";
 import Home from "../Pages/Home/Home/Home";
 import AllArticles from "../Pages/AllArticlesPage/AllArticles";
 import Details from "../Pages/DetailsPage/Details";
+import Login from "../Pages/Login/Login";
+import Signup from './../Pages/signup/Signup';
+import PrivateRoute from "./PrivateRoute";
+
+import Error from "../Pages/ErrorPage/Error";
 
 export const router = createBrowserRouter([
   {
@@ -22,7 +27,19 @@ export const router = createBrowserRouter([
       },
       {
         path: 'details/:id',
-        element: <Details />
+        element:<PrivateRoute> <Details /></PrivateRoute>
+      },
+      {
+        path: 'login',
+        element: <Login />
+      },
+      {
+        path: 'signup',
+        element: <Signup />
+      },
+      {
+        path: "*",
+        element: <Error />
       },
     ]
   },
