@@ -5,17 +5,17 @@ import toast from 'react-hot-toast';
 
 const Navbar = () => {
 
-const { user , logOut} = useContext(AuthContext);
+  const { user, logOut } = useContext(AuthContext);
 
-console.log(user)
-const handleLogOut = () =>{
-  logOut()
-  .then(()=>{})
-  .catch(error => console.log(error));
-  toast.success('Successfully Log Out!');
+  console.log(user)
+  const handleLogOut = () => {
+    logOut()
+      .then(() => { })
+      .catch(error => console.log(error));
+    toast.success('Successfully Log Out!');
 
-}
-    const navOption = <>
+  }
+  const navOption = <>
     <li><Link to="/">Home</Link></li>
     <li><Link to="/addArticles">Add Articles</Link></li>
     <li><Link to="/allArticles">All Articles</Link></li>
@@ -23,20 +23,20 @@ const handleLogOut = () =>{
     <li><Link to="/dashboard">Dashboard</Link></li>
     <li><Link to="/myArticles">My Articles</Link></li>
     <li><Link to="/premiumArticles">My Premium Articles</Link></li>
-    
-    
+
+
     {
       user ? <>
-      <button  onClick={handleLogOut}><img className='w-11 rounded-full' src={user?.photoURL
-} alt="" /></button>
+        <button onClick={handleLogOut}><img className='w-11 rounded-full' src={user?.photoURL
+        } alt="" /></button>
       </> : <>
         <li><Link to="/login">Login</Link></li>
       </>
     }
-   
-    </>
-    return (
-        <>
+
+  </>
+  return (
+    <>
       <div className="navbar fixed z-10 bg-opacity-30 bg-black text-white max-w-screen-xl">
         <div className="navbar-start">
           <div className="dropdown">
@@ -72,7 +72,7 @@ const handleLogOut = () =>{
         </div>
       </div>
     </>
-    );
+  );
 };
 
 export default Navbar;

@@ -1,22 +1,82 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import Article from './Article';
 
-const AllArticles = () => {
-   const [articles ,setArticles] = useState([]);
+const Articles = () => {
+  const [articles, setArticles] = useState([]);
+  const [publisher, setPublisher] = useState('');
+  const [tags, setTags] = useState('');
+  const [searchQuery, setSearchQuery] = useState(''); 
+ 
+  useEffect(() => {
+    fetchArticles();
+  }, [publisher, tags, searchQuery]); 
 
-   useEffect(()=>{
-    fetch('/data.json')
-    .then(res => res.json())
-    .then(data => setArticles(data));
-   },[])
-    return (
-        <div className='grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4 p-4 '>
+ 
+  const fetchArticles = async () => {
+    try {
+      const queryParams = [];
 
-            {
-                articles.map(article => <Article key={article._id} article={article}/>)
-            }
-        </div>
-    );
+      // Adding publisher and tags filters if they are provided
+      if (publisher) queryParams.push(`publisher=${publisher}`);
+      if (tags) queryParams.push(`tags=${tags}`);
+
+      // Adding the search query if it's provided
+      if (searchQuery) queryParams.push(`title=${searchQuery}`);
+
+      // Construct the API request URL with query parameters
+      const url = `http://localhost:3000/news?${queryParams.join('&')}`;
+      const response = await axios.get(url);
+      setArticles(response.data);
+    } catch (error) {
+      console.error('Error fetching articles:', error);
+    }
+  };
+
+  return (
+    <div>
+        <div className="articles-list">
+        {articles.map((article) => (
+          <Article key={article._id} article={article} />
+        ))}
+      </div>
+      {/* Search bar for article title */}
+      <div>
+        <label>Search by Title:</label>
+        <input
+          type="text"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)} // Update search query state
+          placeholder="Search articles by title"
+        />
+      </div>
+
+      {/* Publisher filter */}
+      <div>
+        <label>Publisher:</label>
+        <input
+          type="text"
+          value={publisher}
+          onChange={(e) => setPublisher(e.target.value)}
+          placeholder="Enter publisher"
+        />
+      </div>
+
+      {/* Tags filter */}
+      <div>
+        <label>Tags:</label>
+        <input
+          type="text"
+          value={tags}
+          onChange={(e) => setTags(e.target.value)}
+          placeholder="Enter tags (comma-separated)"
+        />
+      </div>
+
+      {/* Articles list */}
+      
+    </div>
+  );
 };
 
-export default AllArticles;
+export default Articles;
