@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import Article from './Article';
+import useAxiosSecure from '../../hooks/useAxiosSecure';
 
 const Articles = () => {
   const [articles, setArticles] = useState([]);
   const [publisher, setPublisher] = useState('');
   const [tags, setTags] = useState('');
   const [searchQuery, setSearchQuery] = useState(''); 
+  const axiosSecure = useAxiosSecure();
  
   useEffect(() => {
     fetchArticles();
@@ -25,8 +26,8 @@ const Articles = () => {
       if (searchQuery) queryParams.push(`title=${searchQuery}`);
 
       // Construct the API request URL with query parameters
-      const url = `http://localhost:3000/news?${queryParams.join('&')}`;
-      const response = await axios.get(url);
+      const url = `/news?${queryParams.join('&')}`;
+      const response = await axiosSecure.get(url);
       setArticles(response.data);
     } catch (error) {
       console.error('Error fetching articles:', error);

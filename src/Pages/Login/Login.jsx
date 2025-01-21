@@ -37,8 +37,17 @@ const Login = () => {
     const handleGoogleSignIn = () => {
         signInWithGoogle()
             .then(() => {
-                toast.success('Successfully signed in with Google!');
-                navigate('/');
+                const userInfo ={
+                    email : result.user?.email,
+                    name: result.user?.displayName,
+                    image : result.user?.photoURL
+                }
+                axiosPublic.post('/users',userInfo)
+                .then(res=>{
+                     console.log(res.data)
+                    toast.success('Successfully login with Google!');
+                    navigate('/');
+                })
             })
             .catch(() => {
                 toast.error("Cannot sign in, please try again.");

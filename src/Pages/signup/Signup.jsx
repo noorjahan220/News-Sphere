@@ -3,11 +3,15 @@ import { AuthContext } from '../../Providers/AuthProvider';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import toast from 'react-hot-toast';
+import useAxiosPublic from '../../hooks/useAxiosPublic';
+
 
 const Signup = () => {
-    const { createUser, signInWithGoogle,updateUserProfile } = useContext(AuthContext);
+    const axiosPublic = useAxiosPublic();
+    const { createUser, signInWithGoogle, updateUserProfile } = useContext(AuthContext);
     const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
+
 
     const handleSignUp = async (e) => {
         e.preventDefault();
@@ -25,44 +29,65 @@ const Signup = () => {
         }
 
         try {
-            // Create a new user
+
             await createUser(email, password);
-    
-            // Update the user profile
             await updateUserProfile(name, photo);
-    
-            // Optional: Save user info to the server
-            /*
-            const newUser = { name, email, photo };
-            await fetch('https://b10a11-server-side-noorjahan220.vercel.app/users', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(newUser),
-            });
-            */
-    
-            // Success feedback and navigation
-            toast.success('Successfully registered!');
-            e.target.reset();
-            navigate('/');
+            // create user entry in the database
+            const useInfo = {
+                name: name,
+                email: email,
+                image: photo
+            }
+            axiosPublic.post('/users', useInfo)
+                .then(res => {
+                    if (res.data.insertedId) {
+                        console.log("user added in database")
+                        toast.success('Successfully registered!');
+                        e.target.reset();
+                        navigate('/');
+                    }
+                })
+
+
+
         } catch (error) {
             // Error feedback
             toast.error(`Cannot sign up: ${error.message}`);
         }
     };
 
+
     const handleGoogleSignIn = () => {
         signInWithGoogle()
-            .then(() => {
-                toast.success('Successfully signed up with Google!');
-                navigate('/');
+            .then((result) => {
+                if (result.user) {
+                    const userInfo = {
+                        email: result.user.email,
+                        name: result.user.displayName,
+                        image: result.user.photoURL,
+                    };
+    
+                    
+                    axiosPublic.post('/users', userInfo)
+                        .then((res) => {
+                            console.log(res.data);
+                            toast.success('Successfully signed up with Google!');
+                            navigate('/');
+                        })
+                        .catch((error) => {
+                            console.error('Error saving user info to the backend:', error);
+                            toast.error('Failed to save user information. Please try again.');
+                        });
+                } else {
+                    toast.error('Google sign-in failed. Please try again.');
+                }
             })
-            .catch(() => {
+            .catch((error) => {
+                console.error('Error during Google sign-in:', error);
                 toast.error("Cannot sign up, please try again.");
             });
     };
+    
 
     return (
         <div className="min-h-screen flex flex-col-reverse md:flex-row items-center justify-center bg-gray-50 dark:bg-gray-900 p-6 gap-8">

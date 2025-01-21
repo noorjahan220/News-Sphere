@@ -11,6 +11,8 @@ import Signup from './../Pages/signup/Signup';
 import PrivateRoute from "./PrivateRoute";
 
 import Error from "../Pages/ErrorPage/Error";
+import Dashboard from "../Layout/Dashboard";
+import AllUsers from "../Pages/Dashboard/AllUsers/AllUsers";
 
 export const router = createBrowserRouter([
   {
@@ -49,4 +51,18 @@ export const router = createBrowserRouter([
       },
     ]
   },
+  {
+    path:'dashboard',
+    element:<Dashboard/>,
+    children:[
+      {
+        path:'allUsers',
+        element:<AllUsers/>
+      },
+      {
+        path: "*",
+        element: <Error />
+      },
+    ]
+  }
 ]);
