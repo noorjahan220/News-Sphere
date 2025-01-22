@@ -13,6 +13,7 @@ const Dashboard = () => {
             <li><NavLink to="/dashboard/allUsers"><FaUsers />All Users</NavLink></li>
             <li><NavLink to="/dashboard/allArticlesAdmin">All Articles</NavLink></li>
             <li><NavLink to="/dashboard/addPublisher">Publisher</NavLink></li>
+            <li><NavLink to="/">Home</NavLink></li>
         </ul>
             </div>
             <div className='flex-1 p-8'>

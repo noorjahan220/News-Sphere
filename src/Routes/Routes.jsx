@@ -13,6 +13,9 @@ import PrivateRoute from "./PrivateRoute";
 import Error from "../Pages/ErrorPage/Error";
 import Dashboard from "../Layout/Dashboard";
 import AllUsers from "../Pages/Dashboard/AllUsers/AllUsers";
+// import AddArticle from "../Pages/AddArticlePage/AddArticle";
+import AdminRoute from "./AdminRoute";
+import AddPublisher from "../Pages/AddPublisher/AddPublisher";
 
 export const router = createBrowserRouter([
   {
@@ -49,15 +52,23 @@ export const router = createBrowserRouter([
         path: "*",
         element: <Error />
       },
+      // {
+      //   path: "addArticle",
+      //   element: <AddArticle/>
+      // },
     ]
   },
   {
     path:'dashboard',
-    element:<Dashboard/>,
+    element:<AdminRoute><Dashboard/></AdminRoute>,
     children:[
       {
         path:'allUsers',
         element:<AllUsers/>
+      },
+      {
+        path:'addPublisher',
+        element:<AddPublisher/>
       },
       {
         path: "*",

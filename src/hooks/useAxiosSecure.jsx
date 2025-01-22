@@ -1,29 +1,48 @@
 import axios from "axios";
 
 export const axiosSecure = axios.create({
-    baseURL: 'http://localhost:3000'
-})
+  baseURL: 'http://localhost:3000',
+});
 
 const useAxiosSecure = () => {
-    axiosSecure.interceptors.request.use(function (config){
-        const token = localStorage.getItem('access-token')
+  axiosSecure.interceptors.request.use(
+    function (config) {
+      const token = localStorage.getItem('access-token');
+      if (token) {
         config.headers.authorization = `Bearer ${token}`;
-        return config;
-    }, function(error){
-        return Promise.reject(error)
-    })
-     // intercepts 401 and 403 status
-   axiosSecure.interceptors.response.use(function(response){
-    return response;
- },async(error) =>{
-    const status = error.response.status;
-    if(status === 401 || status === 403 ){
-       await logOut();
-       navigate('/login')
+      } else {
+        console.error('Access token is missing');
+      }
+      return config;
+    },
+    function (error) {
+      console.error('Request error:', error);
+      return Promise.reject(error);
     }
-    return Promise.reject(error)
- })
-    return axiosSecure;
+  );
+
+  axiosSecure.interceptors.response.use(
+    function (response) {
+      return response;
+    },
+    async (error) => {
+      if (error.response) {
+        const status = error.response.status;
+        if (status === 401 || status === 403) {
+          console.warn('Unauthorized or forbidden, logging out...');
+          await logOut();
+          navigate('/login');
+        } else {
+          console.error('Response error:', error.response.data);
+        }
+      } else {
+        console.error('No response received:', error);
+      }
+      return Promise.reject(error);
+    }
+  );
+
+  return axiosSecure;
 };
 
 export default useAxiosSecure;
