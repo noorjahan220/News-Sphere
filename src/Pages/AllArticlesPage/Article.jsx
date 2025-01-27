@@ -1,15 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
 import useAxiosPublic from '../../hooks/useAxiosPublic';
 
-
 const Article = ({ article, user }) => {
-  const { title, image, description, tags, _id, isPremium } = article;
-  const axiosPublic =useAxiosPublic()
-
+  const { title, image, Description, tags, _id, isPremium } = article;
+  const axiosPublic = useAxiosPublic();
+ console.log(article)
   // Add safety check to avoid calling substring on undefined description
-  const safeDescription = description ? description.substring(0, 100) : 'No description available';
+  const safeDescription = Description ? Description.substring(0, 150) : 'No description available';
 
   const handleViewUpdate = async () => {
     try {
@@ -21,29 +19,27 @@ const Article = ({ article, user }) => {
   };
 
   return (
-    <div  className={`card ${isPremium ? 'bg-premium' : 'bg-base-100 '} shadow-xl`}>
+    <div className={`card shadow-lg transition-all duration-300 ease-in-out transform ${isPremium ? 'bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500' : 'bg-white'} hover:scale-105`}>
       <figure>
-        <img src={image} alt={title} />
+        <img src={image} alt={title} className="w-full h-64 object-cover rounded-t-md" />
       </figure>
-      <div className="card-body">
-        <h2 className="card-title">{title}</h2>
+      <div className="card-body p-6">
+        <h2 className="card-title text-2xl font-semibold text-gray-800">{title}</h2>
         <div className="flex gap-2 my-2">
           {tags.map((tag, index) => (
-            <div key={index} className="badge badge-outline">
-              {tag}
-            </div>
+            <div key={index} className="badge badge-outline bg-gray-200 text-gray-700">{tag}</div>
           ))}
         </div>
-        <p>{description}...</p> {/* Use the safe description */}
-        <div className="card-actions justify-end">
+        <p>{ safeDescription}...</p>
+        <div className="card-actions justify-end mt-4">
           {/* Disable button if premium and user doesn't have subscription */}
           <Link to={`/details/${_id}`}>
             <button
-              className="btn btn-ghost"
+              className={`btn btn-primary ${isPremium && !user?.premiumTaken ? 'btn-disabled' : ''}`}
               onClick={handleViewUpdate}
               disabled={isPremium && !user?.premiumTaken}
             >
-              Details
+              {isPremium && !user?.premiumTaken ? 'Subscribe to View' : 'View Details'}
             </button>
           </Link>
         </div>
