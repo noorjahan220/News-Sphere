@@ -1,47 +1,81 @@
-
 [
   {
-    "title": "Global Climate Summit 2025: Key Highlights",
-    "image": "https://i.ibb.co.com/ym2Xvky/1736202704688.jpg",
-    "publisher": "The Daily Herald",
-    "tags": ["Environment", "Climate Change", "Global Summit"],
-    "description": "World leaders gather to discuss strategies for combating climate change, setting ambitious goals for 2030.",
-    "viewCount": 0
+    "title": "Exploring the Future of AI in Healthcare",
+    "authorName": "Dr. Alice Johnson",
+    "authorEmail": "alice.johnson@example.com",
+    "authorPhoto": "https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dXNlcnxlbnwwfHwwfHw%3D&w=1000&q=80",
+    "createdAt": "2025-01-15T14:30:00Z",
+    "status": "Approved",
+    "publisher": "TechInsights",
+    "image": "https://i.ibb.co.com/CWH585x/how-ai-is-transforming-healthcare-industry-what-future-holds-2024.jpg",
+    "tags": ["AI", "Healthcare", "Technology"],
+    "Description": "Artificial Intelligence has the potential to revolutionize healthcare by improving diagnosis accuracy, personalizing treatment plans, and enhancing patient outcomes. This article explores the various applications of AI in modern medicine and the challenges it faces.",
+    "viewCount": 0,
+    "isApproved" :true,
+    "status":"approved"
   },
   {
-    "title": "Tech Giants Unveil Next-Gen AI Tools",
-    "image": "https://i.ibb.co.com/yp2gYL2/images.jpg",
-    "publisher": "Tech Times",
-    "tags": ["Technology", "AI", "Innovation"],
-    "description": "Major tech companies introduce groundbreaking AI tools at the annual Tech Expo, revolutionizing industry workflows.",
-    "viewCount": 0
-    
+    "title": "The Rise of Electric Vehicles in Urban Cities",
+    "authorName": "Mark Smith",
+    "authorEmail": "mark.smith@example.com",
+    "authorPhoto": "https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dXNlcnxlbnwwfHwwfHw%3D&w=1000&q=80",
+    "createdAt": "2025-01-18T10:00:00Z",
+    "status": "Pending",
+    "publisher": "GreenTech Media",
+    "image": "https://i.ibb.co.com/fQX8q9s/Get-Paid-Stock-com-66601055cd9f1-20241121162534-original-image-44.webp",
+    "tags": ["Electric Vehicles", "Sustainability", "Urbanization"],
+    "Description": "As cities grow, so does the need for sustainable transportation. Electric vehicles (EVs) are becoming a preferred solution due to their environmental benefits. This article examines the rise of EVs and their role in reducing pollution in urban areas.",
+    "viewCount": 0,
+    "isApproved" : false,
+    "status":"pending"
   },
   {
-    "title": "Local Hero Saves Stranded Hikers in Remote Mountain",
-    "image": "https://i.ibb.co.com/7ghkNFF/images-1.jpg",
-    "publisher": "Community News",
-    "tags": ["Local", "Human Interest", "Rescue"],
-    "description": "A brave local resident rescues two stranded hikers in a daring operation in the remote hills of Montana.",
-    "viewCount": 0
+    "title": "The Future of Space Exploration: Challenges and Opportunities",
+    "authorName": "Dr. Brian Carter",
+    "authorEmail": "brian.carter@example.com",
+    "authorPhoto": "https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dXNlcnxlbnwwfHwwfHw%3D&w=1000&q=80",
+    "createdAt": "2025-01-20T09:00:00Z",
+    "status": "Declined",
+    "publisher": "Space Frontier",
+    "image": "https://i.ibb.co.com/wB7L8Wt/images-4.jpg",
+    "tags": ["Space", "Exploration", "Science"],
+    "Description": "Space exploration continues to push the boundaries of human knowledge and technology. However, it faces many challenges, including funding, technical limitations, and the risks of deep space travel. This article explores the obstacles and opportunities that lie ahead for space exploration.",
+    "viewCount": 0,
+    "isApproved" :true,
+    "status":"approved"
   },
   {
-    "title": "The Rise of Electric Vehicles in 2025",
-    "image": "https://i.ibb.co.com/4pwyDKv/images-2.jpg",
-    "publisher": "Green World Journal",
-    "tags": ["Automobile", "Environment", "Electric Cars"],
-    "description": "Electric vehicles are becoming increasingly popular worldwide, with governments incentivizing sustainable transport options.",
-    "viewCount": 0
+    "title": "The Impact of Climate Change on Global Agriculture",
+    "authorName": "Sophia Turner",
+    "authorEmail": "sophia.turner@example.com",
+    "authorPhoto": "https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dXNlcnxlbnwwfHwwfHw%3D&w=1000&q=80",
+    "createdAt": "2025-01-22T11:45:00Z",
+    "status": "Approved",
+    "publisher": "EcoWorld",
+    "image": "https://i.ibb.co.com/80j1DxV/image.jpg",
+    "tags": ["Climate Change", "Agriculture", "Environment"],
+    "Description": "Climate change is having a profound impact on global agriculture, threatening food security and increasing the risk of crop failures. This article discusses the various ways in which climate change is affecting agricultural productivity and the strategies being employed to adapt.",
+    "viewCount": 0,
+    "isApproved" :true,
+    "status":"approved"
   },
   {
-    "title": "Top 10 Winter Destinations for 2025",
-    "image": "https://i.ibb.co.com/F7gvLqs/images-3.jpg",
-    "publisher": "Travel Explorer",
-    "tags": ["Travel", "Tourism", "Winter"],
-    "description": "Explore the best winter destinations to visit this season, from snowy Alps to tropical escapes.",
-    "viewCount": 0
+    "title": "Blockchain Technology and Its Role in Digital Security",
+    "authorName": "John Davis",
+    "authorEmail": "john.davis@example.com",
+    "authorPhoto": "https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dXNlcnxlbnwwfHwwfHw%3D&w=1000&q=80",
+    "createdAt": "2025-01-25T12:30:00Z",
+    "status": "Pending",
+    "publisher": "TechGuard",
+    "image": "https://i.ibb.co.com/dBRzK1t/Blockchain.jpg",
+    "tags": ["Blockchain", "Digital Security", "Cryptocurrency"],
+    "Description": "Blockchain technology has revolutionized digital security by offering decentralized, transparent, and tamper-proof systems. This article delves into the role of blockchain in securing digital transactions and its growing applications beyond cryptocurrency.",
+    "viewCount": 0,
+    "isApproved" :true,
+    "status":"approved"
   }
 ]
+
 
 
 

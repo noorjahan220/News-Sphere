@@ -1,22 +1,27 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import useAxiosPublic from '../../hooks/useAxiosPublic';
 
-const Article = ({ article }) => {
-  const { title, image, description, tags, _id } = article;
+
+const Article = ({ article, user }) => {
+  const { title, image, description, tags, _id, isPremium } = article;
+  const axiosPublic =useAxiosPublic()
+
+  // Add safety check to avoid calling substring on undefined description
+  const safeDescription = description ? description.substring(0, 100) : 'No description available';
 
   const handleViewUpdate = async () => {
     try {
       // Send a request to the backend to increment the view count
-      await axios.post(`http://localhost:3000/update-view/${_id}`);
-     
+      await axiosPublic.post(`/update-view/${_id}`);
     } catch (error) {
       console.error('Error updating view count:', error);
     }
   };
 
   return (
-    <div className="card bg-base-100 shadow-xl">
+    <div  className={`card ${isPremium ? 'bg-premium' : 'bg-base-100 '} shadow-xl`}>
       <figure>
         <img src={image} alt={title} />
       </figure>
@@ -29,10 +34,17 @@ const Article = ({ article }) => {
             </div>
           ))}
         </div>
-        <p>{description.substring(0, 100)}...</p>
+        <p>{description}...</p> {/* Use the safe description */}
         <div className="card-actions justify-end">
-          <Link to={`/details/${_id}`} onClick={handleViewUpdate}>
-            <button className="btn btn-ghost">Details</button>
+          {/* Disable button if premium and user doesn't have subscription */}
+          <Link to={`/details/${_id}`}>
+            <button
+              className="btn btn-ghost"
+              onClick={handleViewUpdate}
+              disabled={isPremium && !user?.premiumTaken}
+            >
+              Details
+            </button>
           </Link>
         </div>
       </div>

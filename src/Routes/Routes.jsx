@@ -13,9 +13,14 @@ import PrivateRoute from "./PrivateRoute";
 import Error from "../Pages/ErrorPage/Error";
 import Dashboard from "../Layout/Dashboard";
 import AllUsers from "../Pages/Dashboard/AllUsers/AllUsers";
-// import AddArticle from "../Pages/AddArticlePage/AddArticle";
+import AddArticle from "../Pages/AddArticlePage/AddArticle";
 import AdminRoute from "./AdminRoute";
 import AddPublisher from "../Pages/AddPublisher/AddPublisher";
+import AllArticlesAdmin from "../Pages/AllArticlesAdmin/AllArticlesAdmin";
+import MyArticlePage from "../Pages/MyArticlePage/MyArticlePage";
+import Subscription from "../Pages/subscription/Subscription";
+import PaymentPage from "../Pages/subscription/PaymentPage";
+import MyProfilePage from './../Pages/MyProfilePage/MyProfilePage';
 
 export const router = createBrowserRouter([
   {
@@ -31,14 +36,29 @@ export const router = createBrowserRouter([
         element: <AllArticles />
       },
       {
+        path: 'myArticles',
+        element: <MyArticlePage />
+      },
+      {
+        path: 'myProfile',
+        element: <MyProfilePage/>
+      },
+      {
+        path: 'subscription',
+        element: <Subscription />
+      },
+      {
+        path: 'payment',
+        element: <PaymentPage />
+      },
+      {
         path: 'details/:id',
         element: (
             <PrivateRoute>
                 <Details />
             </PrivateRoute>
         ),
-        loader: ({ params }) =>
-            fetch(`http://localhost:3000/newsId/${params.id}`)
+        
     },
       {
         path: 'login',
@@ -52,10 +72,10 @@ export const router = createBrowserRouter([
         path: "*",
         element: <Error />
       },
-      // {
-      //   path: "addArticle",
-      //   element: <AddArticle/>
-      // },
+      {
+        path: "addArticle",
+        element: <AddArticle/>
+      },
     ]
   },
   {
@@ -69,6 +89,10 @@ export const router = createBrowserRouter([
       {
         path:'addPublisher',
         element:<AddPublisher/>
+      },
+      {
+        path:'allArticlesAdmin',
+        element:<AllArticlesAdmin/>
       },
       {
         path: "*",
