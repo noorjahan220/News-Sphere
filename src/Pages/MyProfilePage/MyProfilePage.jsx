@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import { AuthContext } from "../../Providers/AuthProvider";
+import SubscriptionStatus from "../subscription/SubscriptionStatus";
 
 
 const MyProfilePage = () => {
@@ -77,6 +78,9 @@ const MyProfilePage = () => {
                 alt="Profile"
                 className="w-32 h-32 rounded-full mx-auto mt-4"
               />
+            </div>
+            <div>
+              <SubscriptionStatus/>
             </div>
           </div>
         </div>

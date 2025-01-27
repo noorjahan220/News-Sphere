@@ -1,10 +1,16 @@
 import axios from "axios";
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom"; 
+import { AuthContext } from "../Providers/AuthProvider";
 
 export const axiosSecure = axios.create({
   baseURL: 'http://localhost:3000',
 });
 
 const useAxiosSecure = () => {
+  const navigate = useNavigate(); 
+  const { logOut } = useContext(AuthContext); 
+
   axiosSecure.interceptors.request.use(
     function (config) {
       const token = localStorage.getItem('access-token');

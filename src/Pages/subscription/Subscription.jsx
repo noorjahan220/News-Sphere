@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import useAxiosSecure from '../../hooks/useAxiosSecure';  
 
-const SubscriptionPage = () => {
+const Subscription = () => {
   const navigate = useNavigate();
+  const axiosSecure = useAxiosSecure();
 
   const subscriptionOptions = [
     { value: '1', label: '1 Minute', price: 1, description: 'Perfect for quick trial and exploration.' },
@@ -12,9 +14,20 @@ const SubscriptionPage = () => {
 
   const [selectedOption, setSelectedOption] = useState(subscriptionOptions[0]);
 
-  const handleSubscription = () => {
-    navigate('/payment', { state: { selectedPeriod: selectedOption.value, price: selectedOption.price } });
+  const handleSubscription = async () => {
+    try {
+      const response = await axiosSecure.patch('/update-subscription', {
+        subscriptionPeriod: selectedOption.value,
+      });
+  
+      alert(response.data.message);
+      navigate('/payment', { state: { selectedPeriod: selectedOption.value, price: selectedOption.price } });
+    } catch (error) {
+      alert('Error updating subscription, please try again.');
+      console.error('Error updating subscription:', error);
+    }
   };
+ 
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-6">
@@ -52,4 +65,4 @@ const SubscriptionPage = () => {
   );
 };
 
-export default SubscriptionPage;
+export default Subscription;

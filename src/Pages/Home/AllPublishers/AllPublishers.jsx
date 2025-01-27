@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import useAxiosSecure from '../../../hooks/useAxiosSecure';
+
 
 const AllPublishers = () => {
   const [publishers, setPublishers] = useState([]);
   const [loading, setLoading] = useState(true);
-
+const axiosSecure =useAxiosSecure()
   // Fetch the list of publishers when the component mounts
   useEffect(() => {
     fetchPublishers();
@@ -13,7 +15,7 @@ const AllPublishers = () => {
   // Fetch data from the backend
   const fetchPublishers = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/publishers'); // Update with your backend endpoint
+      const response = await axiosSecure.get('/publishers');
       setPublishers(response.data);
       setLoading(false);
     } catch (error) {

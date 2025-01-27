@@ -1,53 +1,72 @@
 import React, { useEffect, useState } from 'react';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
+import useAxiosSecure from '../../hooks/useAxiosSecure';
 
-const CheckoutForm = ({ price }) => {
+const CheckoutForm = ({ price , onPaymentSuccess}) => {
     const stripe = useStripe();
     const elements = useElements();
     const [clientSecret, setClientSecret] = useState('');
-    const [error, setError] = useState(null);
+    const [paymentError, setPaymentError] = useState(null); // Renamed error state
     const [processing, setProcessing] = useState(false);
     const [succeeded, setSucceeded] = useState(false);
+    const axiosSecure = useAxiosSecure();
 
     useEffect(() => {
         // Fetch the client secret from the backend
-        fetch('/create-payment-intent', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ amount: price * 100 }), // Amount in cents
+        axiosSecure.post('/create-payment-intent', {
+            amount: price * 100, // Amount in cents
         })
-            .then((res) => res.json())
-            .then((data) => setClientSecret(data.clientSecret))
+            .then((res) => setClientSecret(res.data.clientSecret)) // Corrected response handling
             .catch((err) => console.error(err));
-    }, [price]);
+    }, [price, axiosSecure]); // Added axiosSecure dependency
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         if (!stripe || !elements) return;
-
+      
         setProcessing(true);
-
+      
         const card = elements.getElement(CardElement);
-        const { error, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
-            payment_method: { card },
+        if (card === null) return;
+      
+        const { error: paymentMethodError, paymentMethod } = await stripe.createPaymentMethod({
+          type: 'card',
+          card,
         });
-
-        if (error) {
-            setError(error.message);
-            setProcessing(false);
-        } else if (paymentIntent.status === 'succeeded') {
-            setSucceeded(true);
-            setProcessing(false);
-            setError(null);
+      
+        if (paymentMethodError) {
+          setPaymentError(paymentMethodError.message);
+          setProcessing(false);
+          return;
         }
-    };
+      
+        const { error, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
+          payment_method: paymentMethod.id,
+          
+        });
+        console.log("Amount to be paid:", price * 100)
+        if (error) {
+          setPaymentError(error.message);
+          setProcessing(false);
+        } else if (paymentIntent.status === 'succeeded') {
+          setSucceeded(true);
+          setProcessing(false);
+          setPaymentError(null);
+      
+          // Call the onPaymentSuccess callback if payment is successful
+          if (onPaymentSuccess) {
+            onPaymentSuccess();
+          }
+        }
+      };
+      
 
     return (
         <form onSubmit={handleSubmit} className="space-y-6">
             <div className="border rounded-lg p-4 bg-gray-50">
                 <CardElement className="p-2" />
             </div>
-            {error && <div className="text-red-500 text-sm">{error}</div>}
+            {paymentError && <div className="text-red-500 text-sm">{paymentError}</div>}
             <button
                 type="submit"
                 disabled={processing || !stripe || !clientSecret}
@@ -57,6 +76,7 @@ const CheckoutForm = ({ price }) => {
             >
                 {processing ? 'Processing...' : `Pay $${price}`}
             </button>
+            {paymentError && <p className='text-red-600'>{paymentError}</p>}
         </form>
     );
 };

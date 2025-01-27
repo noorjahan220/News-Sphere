@@ -5,13 +5,13 @@ import useAxiosPublic from '../../hooks/useAxiosPublic';
 const Article = ({ article, user }) => {
   const { title, image, Description, tags, _id, isPremium } = article;
   const axiosPublic = useAxiosPublic();
- console.log(article)
-  // Add safety check to avoid calling substring on undefined description
+
+ 
   const safeDescription = Description ? Description.substring(0, 150) : 'No description available';
 
   const handleViewUpdate = async () => {
     try {
-      // Send a request to the backend to increment the view count
+    
       await axiosPublic.post(`/update-view/${_id}`);
     } catch (error) {
       console.error('Error updating view count:', error);
@@ -32,7 +32,7 @@ const Article = ({ article, user }) => {
         </div>
         <p>{ safeDescription}...</p>
         <div className="card-actions justify-end mt-4">
-          {/* Disable button if premium and user doesn't have subscription */}
+         
           <Link to={`/details/${_id}`}>
             <button
               className={`btn btn-primary ${isPremium && !user?.premiumTaken ? 'btn-disabled' : ''}`}

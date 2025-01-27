@@ -26,7 +26,7 @@ const Navbar = () => {
       )}
 
       {user?.subscription && (
-        <li><Link to="/premiumArticles">Premium Articles</Link></li>
+        <li><Link to="/premium">Premium Articles</Link></li>
       )}
 
       {user ? (

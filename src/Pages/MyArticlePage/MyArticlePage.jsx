@@ -11,21 +11,19 @@ const MyArticlePage = () => {
     const [modalOpen, setModalOpen] = useState(false);
     const [declineReason, setDeclineReason] = useState('');
     const axiosSecure = useAxiosSecure();
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
     useEffect(() => {
-        // Fetch articles specific to the current user
         axiosSecure
-            .get('/my-articles') // Endpoint for the user's articles
+            .get('/my-articles') 
             .then((response) => {
-                console.log('Fetched User Articles:', response.data);
-                setArticles(response.data); // Set the articles
+                setArticles(response.data); 
             })
             .catch((error) => {
                 console.error('Error fetching user articles:', error);
-                setArticles([]); // Handle error gracefully
+                setArticles([]); 
             });
-    }, []);
+    }, [axiosSecure]);
 
     // Open modal with decline reason
     const openDeclineReasonModal = (reason) => {
@@ -42,8 +40,7 @@ const MyArticlePage = () => {
     const handleDelete = (articleId) => {
         axiosSecure
             .delete(`/articles/${articleId}`)
-            .then((response) => {
-                // Re-fetch the articles after deletion
+            .then(() => {
                 setArticles((prevArticles) => prevArticles.filter(article => article._id !== articleId));
             })
             .catch((error) => {
@@ -52,37 +49,65 @@ const MyArticlePage = () => {
     };
 
     return (
-        <div className='pt-44'>
-            <table>
+        <div className="pt-24 px-4">
+            <h1 className="text-2xl font-bold mb-6">My Articles</h1>
+            <table className="w-full border-collapse border border-gray-300">
                 <thead>
-                    <tr>
-                        <th>Title</th>
-                        <th>Status</th>
-                        <th>Actions</th>
+                    <tr className="bg-gray-100">
+                        <th className="border border-gray-300 px-4 py-2">#</th>
+                        <th className="border border-gray-300 px-4 py-2">Title</th>
+                        <th className="border border-gray-300 px-4 py-2">Details</th>
+                        <th className="border border-gray-300 px-4 py-2">Status</th>
+                        <th className="border border-gray-300 px-4 py-2">Is Premium</th>
+                        <th className="border border-gray-300 px-4 py-2">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {articles.map((article) => (
-                        <tr key={article._id}>
-                            <td>{article.title}</td>
-                            <td>
+                    {articles.map((article, index) => (
+                        <tr key={article._id} className="text-center">
+                            <td className="border border-gray-300 px-4 py-2">{index + 1}</td>
+                            <td className="border border-gray-300 px-4 py-2">{article.title}</td>
+                            <td className="border border-gray-300 px-4 py-2">
+                                <button
+                                    className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600"
+                                    onClick={() => navigate(`/articles/${article._id}`)}
+                                >
+                                    View Details
+                                </button>
+                            </td>
+                            <td className="border border-gray-300 px-4 py-2">
                                 {article.isApproved ? (
-                                    <span>Approved</span>
+                                    <span className="text-green-600 font-bold">Approved</span>
                                 ) : article.isDeclined ? (
                                     <>
-                                        <span>Declined</span>
-                                        <button onClick={() => openDeclineReasonModal(article.declineReason)}>
+                                        <span className="text-red-600 font-bold">Declined</span>
+                                        <button
+                                            className="bg-red-500 text-white px-3 py-1 rounded ml-2 hover:bg-red-600"
+                                            onClick={() => openDeclineReasonModal(article.declineReason)}
+                                        >
                                             View Reason
                                         </button>
                                     </>
                                 ) : (
-                                    <span>Pending</span>
+                                    <span className="text-yellow-600 font-bold">Pending</span>
                                 )}
                             </td>
-                            <td>
-                                <button onClick={() => navigate(`/articles/${article._id}`)}>View Details</button>
-                                <button>Update</button>
-                                <button onClick={() => handleDelete(article._id)}>Delete</button>
+                            <td className="border border-gray-300 px-4 py-2">
+                                {article.isPremium ? 'Yes' : 'No'}
+                            </td>
+                            <td className="border border-gray-300 px-4 py-2 space-x-2">
+                                <button
+                                    className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600"
+                                    onClick={() => navigate(`/articles/edit/${article._id}`)}
+                                >
+                                    Update
+                                </button>
+                                <button
+                                    className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
+                                    onClick={() => handleDelete(article._id)}
+                                >
+                                    Delete
+                                </button>
                             </td>
                         </tr>
                     ))}
@@ -91,9 +116,14 @@ const MyArticlePage = () => {
 
             {modalOpen && (
                 <Modal isOpen={modalOpen} onClose={closeModal}>
-                    <h2>Decline Reason</h2>
-                    <p>{declineReason}</p>
-                    <button onClick={closeModal}>Close</button>
+                    <h2 className="text-xl font-bold mb-4">Decline Reason</h2>
+                    <p className="mb-4">{declineReason}</p>
+                    <button
+                        className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600"
+                        onClick={closeModal}
+                    >
+                        Close
+                    </button>
                 </Modal>
             )}
         </div>

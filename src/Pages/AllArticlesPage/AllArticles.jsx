@@ -3,28 +3,28 @@ import Article from './Article';
 import useAxiosPublic from '../../hooks/useAxiosPublic';
 import { useQuery } from '@tanstack/react-query';
 
-// Function to fetch articles using Axios and TanStack Query
-const fetchArticles = async (publisher, tags, searchQuery, axiosPublic) => {
-  const queryParams = ['isApproved=true']; // Only fetch approved articles by default
 
-  // Apply filters for publisher, tags, and title (search)
+const fetchArticles = async (publisher, tags, searchQuery, axiosPublic) => {
+  const queryParams = ['isApproved=true'];
+
+  
   if (publisher) queryParams.push(`publisher=${publisher}`);
   if (tags) queryParams.push(`tags=${tags}`);
   if (searchQuery) queryParams.push(`title=${searchQuery}`);
 
   const url = `/news?${queryParams.join('&')}`;
-  const response = await axiosPublic.get(url); // Fetch data from API
-  return response.data; // Return the fetched articles
+  const response = await axiosPublic.get(url);
+  return response.data; 
 };
 
 const AllArticles = () => {
   const [publisher, setPublisher] = useState('');
   const [tags, setTags] = useState('');
-  const [searchQuery, setSearchQuery] = useState(''); // State for search query
+  const [searchQuery, setSearchQuery] = useState(''); 
   const axiosPublic = useAxiosPublic();
-  const [user, setUser] = useState(null); // Store user info to check subscription
+  const [user, setUser] = useState(null); 
 
-  // Use TanStack Query's useQuery hook to fetch articles
+  
   const { data: articles, isLoading, error } = useQuery({
     queryKey: ['articles', publisher, tags, searchQuery],
     queryFn: () => fetchArticles(publisher, tags, searchQuery, axiosPublic),

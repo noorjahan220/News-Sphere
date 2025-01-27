@@ -4,6 +4,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import toast from 'react-hot-toast';
 import useAxiosPublic from '../../hooks/useAxiosPublic';
+import useAxiosSecure from '../../hooks/useAxiosSecure';
+
 
 
 const Signup = () => {
@@ -11,7 +13,7 @@ const Signup = () => {
     const { createUser, signInWithGoogle, updateUserProfile } = useContext(AuthContext);
     const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
-
+const axiosSecure = useAxiosSecure()
 
     const handleSignUp = async (e) => {
         e.preventDefault();
@@ -36,8 +38,17 @@ const Signup = () => {
             const useInfo = {
                 name: name,
                 email: email,
-                image: photo
+                image: photo,
+                premiumTaken: null
             }
+            axiosSecure.get('/user-status')
+            .then(res=>{
+                if (res.data.insertedId) {
+                    console.log("user status added")
+                  
+                }
+            })
+            
             axiosPublic.post('/users', useInfo)
                 .then(res => {
                     if (res.data.insertedId) {

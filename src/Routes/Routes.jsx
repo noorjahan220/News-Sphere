@@ -21,6 +21,7 @@ import MyArticlePage from "../Pages/MyArticlePage/MyArticlePage";
 import Subscription from "../Pages/subscription/Subscription";
 import PaymentPage from "../Pages/subscription/PaymentPage";
 import MyProfilePage from './../Pages/MyProfilePage/MyProfilePage';
+import PremiumArticles from "../Pages/PremiumArticles/PremiumArticles";
 
 export const router = createBrowserRouter([
   {
@@ -75,6 +76,10 @@ export const router = createBrowserRouter([
       {
         path: "addArticle",
         element: <AddArticle/>
+      },
+      {
+        path: "premium",
+        element: <PremiumArticles/>
       },
     ]
   },
