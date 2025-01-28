@@ -10,24 +10,18 @@ const AdminHome = () => {
         const fetchNewsData = async () => {
             try {
                 const { data } = await axios.get("http://localhost:3000/news");
-                console.log("Fetched News Data:", data);
-
                 const groupedData = data.reduce((acc, article) => {
                     if (article.publisher) {
                         acc[article.publisher] = (acc[article.publisher] || 0) + 1;
                     }
                     return acc;
                 }, {});
-
-                console.log("Grouped Data:", groupedData);
-
-                // Convert grouped data into chart-ready format
+                
                 const chartData = [["Publisher", "Articles"]];
                 for (const [publisher, count] of Object.entries(groupedData)) {
                     chartData.push([publisher, count]);
                 }
 
-                console.log("Publisher Data for Bar Chart:", chartData);
                 setPublisherData(chartData);
                 setLoading(false);
             } catch (error) {
@@ -38,9 +32,7 @@ const AdminHome = () => {
         fetchNewsData();
     }, []);
 
-    // Calculate Pie Chart Data
     const totalArticles = publisherData.slice(1).reduce((sum, [, count]) => sum + count, 0);
-    console.log("Total Articles:", totalArticles);
 
     const pieChartData = [["Publisher", "Percentage"]];
     if (totalArticles > 0) {
@@ -52,68 +44,74 @@ const AdminHome = () => {
         });
     }
 
-    console.log("Pie Chart Data:", JSON.stringify(pieChartData, null, 2));
     return (
-        <div className="charts-container">
-            <h1>Dynamic and Static Charts</h1>
+        <div className="bg-gradient-to-b from-gray-100 to-gray-200 p-8 min-h-screen">
+            <div className="container mx-auto text-center">
 
-            {/* Dynamic Pie Chart */}
-            <div className="chart">
-                <h2>Publisher Article Percentage</h2>
-                <Chart
-                    chartType="PieChart"
-                    data={pieChartData}
-                    options={{
-                        title: "Publisher Article Percentage",
-                        is3D: true,
-                        pieSliceText: "percentage",
-                        legend: { position: "bottom" },
-                    }}
-                    width="100%"
-                    height="400px"
-                />
-            </div>
+                <h1 className="text-4xl font-extrabold text-gray-900 mb-10">Dynamic and Static Charts</h1>
 
-            {/* Static Bar Chart */}
-            <div className="chart">
-                <h2>Articles by Publisher</h2>
-                <Chart
-                    chartType="BarChart"
-                    data={publisherData}
-                    options={{
-                        title: "Articles by Publisher",
-                        hAxis: { title: "Articles", minValue: 0 },
-                        vAxis: { title: "Publisher" },
-                        bars: "horizontal",
-                        legend: { position: "none" },
-                    }}
-                    width="100%"
-                    height="400px"
-                />
-            </div>
+                <div className="grid gap-8 lg:grid-cols-2 md:grid-cols-1">
+                    {/* Dynamic Pie Chart */}
+                    <div className="bg-white p-8 rounded-xl shadow-xl hover:shadow-2xl transition-shadow duration-300">
+                        <h2 className="text-3xl font-semibold text-blue-600 mb-6">Publisher Article Percentage</h2>
+                        <Chart
+                            chartType="PieChart"
+                            data={pieChartData}
+                            options={{
+                                title: "Publisher Article Percentage",
+                                is3D: true,
+                                pieSliceText: "percentage",
+                                legend: { position: "bottom" },
+                            }}
+                            width="100%"
+                            height="400px"
+                        />
+                    </div>
 
-            {/* Static Area Chart */}
-            <div className="chart">
-                <h2>Article Trends Over Time</h2>
-                <Chart
-                    chartType="AreaChart"
-                    data={[
-                        ["Date", "Articles"],
-                        ["2023-01", 10],
-                        ["2023-02", 15],
-                        ["2023-03", 25],
-                        ["2023-04", 30],
-                    ]} // Replace with dynamic data if available
-                    options={{
-                        title: "Article Trends Over Time",
-                        hAxis: { title: "Date", format: "MMM yyyy" },
-                        vAxis: { title: "Articles" },
-                        legend: { position: "bottom" },
-                        areaOpacity: 0.3,
-                    }}
-                    width="100%"
-                    height="400px"
-                />
+                    {/* Static Bar Chart */}
+                    <div className="bg-white p-8 rounded-xl shadow-xl hover:shadow-2xl transition-shadow duration-300">
+                        <h2 className="text-3xl font-semibold text-blue-600 mb-6">Articles by Publisher</h2>
+                        <Chart
+                            chartType="BarChart"
+                            data={publisherData}
+                            options={{
+                                title: "Articles by Publisher",
+                                hAxis: { title: "Articles", minValue: 0 },
+                                vAxis: { title: "Publisher" },
+                                bars: "horizontal",
+                                legend: { position: "none" },
+                            }}
+                            width="100%"
+                            height="400px"
+                        />
+                    </div>
+
+                </div>
+
+                {/* Static Area Chart */}
+                <div className="bg-white p-8 rounded-xl shadow-xl hover:shadow-2xl transition-shadow duration-300 mt-8">
+                    <h2 className="text-3xl font-semibold text-blue-600 mb-6">Article Trends Over Time</h2>
+                    <Chart
+                        chartType="AreaChart"
+                        data={[
+                            ["Date", "Articles"],
+                            ["2023-01", 10],
+                            ["2023-02", 15],
+                            ["2023-03", 25],
+                            ["2023-04", 30],
+                        ]}
+                        options={{
+                            title: "Article Trends Over Time",
+                            hAxis: { title: "Date", format: "MMM yyyy" },
+                            vAxis: { title: "Articles" },
+                            legend: { position: "bottom" },
+                            areaOpacity: 0.3,
+                        }}
+                        width="100%"
+                        height="400px"
+                    />
+                </div>
+
             </div>
         </div>
     );

@@ -36,7 +36,7 @@ const PremiumArticles = () => {
               <h2 className="text-xl sm:text-2xl font-semibold text-gray-800 truncate">{article.title}</h2>
               <p className="publisher text-gray-600 text-sm mb-2">Published by: {article.publisher}</p>
               <p className="description text-gray-700 text-sm mb-4">{article.description}</p>
-              <Link to={`/article/${article._id}`} className="view-details-btn text-blue-600 hover:underline text-sm">
+              <Link to={`/details/${article._id}`} className="view-details-btn text-blue-600 hover:underline text-sm">
                 View Details
               </Link>
             </div>

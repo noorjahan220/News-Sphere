@@ -32,11 +32,11 @@ const MyArticlePage = () => {
     }, [articles]); // Only run this when articles are fetched or updated
 
     if (isLoading) {
-        return <div>Loading...</div>;
+        return <div className="text-center py-8">Loading...</div>;
     }
 
     if (isError) {
-        return <div>Error loading articles</div>;
+        return <div className="text-center py-8 text-red-600">Error loading articles</div>;
     }
 
     // Close the modal
@@ -72,69 +72,70 @@ const MyArticlePage = () => {
     };
 
     return (
-        <div className="pt-24 px-4">
-            <h1 className="text-2xl font-bold mb-6">My Articles</h1>
-            <table className="w-full border-collapse border border-gray-300">
-                <thead>
-                    <tr className="bg-gray-100">
-                        <th className="border border-gray-300 px-4 py-2">#</th>
-                        <th className="border border-gray-300 px-4 py-2">Title</th>
-                        <th className="border border-gray-300 px-4 py-2">Details</th>
-                        <th className="border border-gray-300 px-4 py-2">Status</th>
-                        <th className="border border-gray-300 px-4 py-2">Is Premium</th>
-                        <th className="border border-gray-300 px-4 py-2">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {articles.map((article, index) => (
-                        <tr key={article._id} className="text-center">
-                            <td className="border border-gray-300 px-4 py-2">{index + 1}</td>
-                            <td className="border border-gray-300 px-4 py-2">{article.title}</td>
-                            <td className="border border-gray-300 px-4 py-2">
-                                <button
-                                    className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600"
-                                    onClick={() => navigate(`/details/${article._id}`)}
-                                >
-                                    View Details
-                                </button>
-                            </td>
-                            <td className="border border-gray-300 px-4 py-2">
-                                {article.isApproved ? (
-                                    <span className="text-green-600 font-bold">Approved</span>
-                                ) : article.isDeclined ? (
-                                    <>
-                                        <span className="text-red-600 font-bold">Declined</span>
-                                    </>
-                                ) : (
-                                    <span className="text-yellow-600 font-bold">Pending</span>
-                                )}
-                            </td>
-                            <td className="border border-gray-300 px-4 py-2">
-                                {article.isPremium ? 'Yes' : 'No'}
-                            </td>
-                            <td className="border border-gray-300 px-4 py-2 space-x-2">
-                                <button
-                                    className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600"
-                                    onClick={() => navigate(`/update/${article._id}`)}
-                                >
-                                    Update
-                                </button>
-                                <button
-                                    className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
-                                    onClick={() => handleDelete(article._id)}
-                                >
-                                    Delete
-                                </button>
-                            </td>
+        <div className="pt-24 px-4 pb-20">
+            <h1 className="text-3xl font-bold text-center mb-6">My Articles</h1>
+            
+            <div className="overflow-x-auto bg-white shadow-lg rounded-lg p-6">
+                <table className="w-full table-auto text-left border-collapse">
+                    <thead className="bg-gray-100">
+                        <tr>
+                            <th className="px-4 py-2 border-b">#</th>
+                            <th className="px-4 py-2 border-b">Title</th>
+                            <th className="px-4 py-2 border-b">Details</th>
+                            <th className="px-4 py-2 border-b">Status</th>
+                            <th className="px-4 py-2 border-b">Is Premium</th>
+                            <th className="px-4 py-2 border-b">Actions</th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {articles.map((article, index) => (
+                            <tr key={article._id} className="hover:bg-gray-50">
+                                <td className="px-4 py-2 border-b">{index + 1}</td>
+                                <td className="px-4 py-2 border-b">{article.title}</td>
+                                <td className="px-4 py-2 border-b">
+                                    <button
+                                        className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600"
+                                        onClick={() => navigate(`/details/${article._id}`)}
+                                    >
+                                        View Details
+                                    </button>
+                                </td>
+                                <td className="px-4 py-2 border-b">
+                                    {article.isApproved ? (
+                                        <span className="text-green-600 font-bold">Approved</span>
+                                    ) : article.isDeclined ? (
+                                        <span className="text-red-600 font-bold">Declined</span>
+                                    ) : (
+                                        <span className="text-yellow-600 font-bold">Pending</span>
+                                    )}
+                                </td>
+                                <td className="px-4 py-2 border-b">
+                                    {article.isPremium ? 'Yes' : 'No'}
+                                </td>
+                                <td className="px-4 py-2 border-b space-x-2">
+                                    <button
+                                        className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600"
+                                        onClick={() => navigate(`/update/${article._id}`)}
+                                    >
+                                        Update
+                                    </button>
+                                    <button
+                                        className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
+                                        onClick={() => handleDelete(article._id)}
+                                    >
+                                        Delete
+                                    </button>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
 
             {/* DaisyUI Modal for Decline Reason */}
             {modalOpen && (
                 <div className="modal modal-open">
-                    <div className="modal-box">
+                    <div className="modal-box max-w-md mx-auto p-6">
                         <h2 className="text-xl font-bold mb-4">Decline Reason</h2>
                         <p className="mb-4">{declineReason || 'No reason provided'}</p>
                         <div className="modal-action">

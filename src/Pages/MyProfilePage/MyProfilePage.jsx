@@ -2,11 +2,10 @@ import React, { useContext, useState } from "react";
 import { AuthContext } from "../../Providers/AuthProvider";
 import SubscriptionStatus from "../subscription/SubscriptionStatus";
 
-
 const MyProfilePage = () => {
   const { user, updateUserProfile } = useContext(AuthContext);
-  const [name, setName] = useState(user?.displayName || ""); // Pre-fill the name field with the current user info
-  const [photo, setPhoto] = useState(user?.photoURL || ""); // Pre-fill the photo URL if available
+  const [name, setName] = useState(user?.displayName || "");
+  const [photo, setPhoto] = useState(user?.photoURL || "");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -16,7 +15,6 @@ const MyProfilePage = () => {
     setError("");
 
     try {
-      // Call the updateUserProfile function from the context to update the name and photo URL
       await updateUserProfile(name, photo);
       setLoading(false);
     } catch (error) {
@@ -26,14 +24,22 @@ const MyProfilePage = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-6">
-      <div className="max-w-5xl w-full">
-        <div className="bg-gradient-to-r from-blue-500 to-purple-600 text-white text-center py-8 rounded-t-xl shadow-xl">
-          <h1 className="text-4xl font-bold">My Profile</h1>
-          <p className="text-lg mt-2">Manage your account details</p>
+    <div className="min-h-screen bg-gradient-to-r from-teal-500 to-teal-600 p-6">
+      <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-xl p-8">
+        <div className="text-center">
+          <h1 className="text-3xl font-bold text-teal-700">My Profile</h1>
+          <p className="text-lg mt-2 text-gray-600">Manage your account details</p>
         </div>
-        <div className="bg-white shadow-lg rounded-lg p-8 mt-6">
-          <h2 className="text-2xl font-bold text-gray-800 mb-4">Profile Information</h2>
+
+        <div className="mt-6">
+          <div className="flex justify-center mb-6">
+            <img
+              src={user?.photoURL || "https://via.placeholder.com/150"}
+              alt="Profile"
+              className="w-32 h-32 rounded-full border-4 border-teal-600 shadow-lg"
+            />
+          </div>
+
           <form onSubmit={handleUpdateProfile} className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-gray-700">Display Name</label>
@@ -41,46 +47,42 @@ const MyProfilePage = () => {
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="mt-1 px-4 py-2 border border-gray-300 rounded-lg w-full"
+                className="mt-2 px-4 py-2 border border-gray-300 rounded-lg w-full focus:ring-2 focus:ring-teal-500"
                 required
               />
             </div>
+
             <div>
               <label className="block text-sm font-medium text-gray-700">Profile Picture URL</label>
               <input
                 type="url"
                 value={photo}
                 onChange={(e) => setPhoto(e.target.value)}
-                className="mt-1 px-4 py-2 border border-gray-300 rounded-lg w-full"
+                className="mt-2 px-4 py-2 border border-gray-300 rounded-lg w-full focus:ring-2 focus:ring-teal-500"
               />
             </div>
-            {error && <p className="text-red-500">{error}</p>}
-            <div className="flex items-center justify-between">
+
+            {error && <p className="text-red-500 mt-2">{error}</p>}
+
+            <div className="flex justify-center">
               <button
                 type="submit"
                 disabled={loading}
-                className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg font-medium"
+                className="mt-4 bg-teal-600 hover:bg-teal-700 text-white py-2 px-6 rounded-lg font-medium transition duration-200 ease-in-out"
               >
                 {loading ? "Updating..." : "Update Profile"}
               </button>
             </div>
           </form>
+
           <div className="mt-8 text-center">
-            <p className="text-sm text-gray-600">
-              <strong>Your Info:</strong>
-            </p>
-            <div className="text-gray-800">
+            <h3 className="text-lg font-semibold text-teal-600">Your Info:</h3>
+            <div className="mt-4 text-gray-700">
               <p>Name: {user?.displayName || "No name set"}</p>
               <p>Email: {user?.email}</p>
-              <p>Profile Photo:</p>
-              <img
-                src={user?.photoURL || "https://via.placeholder.com/150"}
-                alt="Profile"
-                className="w-32 h-32 rounded-full mx-auto mt-4"
-              />
-            </div>
-            <div>
-              <SubscriptionStatus/>
+              <div className="mt-4">
+                <SubscriptionStatus />
+              </div>
             </div>
           </div>
         </div>

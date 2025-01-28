@@ -1,18 +1,25 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Providers/AuthProvider';
 import toast from 'react-hot-toast';
-
 import useAxiosPublic from '../../hooks/useAxiosPublic';
 
 const Login = () => {
-    const { signIn, signInWithGoogle } = useContext(AuthContext);
+    const { signIn, signInWithGoogle, user } = useContext(AuthContext);
     const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
     const location = useLocation();
-    const from = location.state?.from?.pathname || "/";
-    const axiosPublic =useAxiosPublic()
+    const from = location.state?.from?.pathname || "/"; // If redirected, navigate to the previous page
+    const axiosPublic = useAxiosPublic();
+
+    // Check if user is already logged in
+    useEffect(() => {
+        if (user) {
+            navigate(from, { replace: true });
+        }
+    }, [user, navigate, from]);
+
     const handleSignin = (e) => {
         e.preventDefault();
         const form = e.target;
@@ -32,28 +39,23 @@ const Login = () => {
 
     const handleGoogleSignIn = () => {
         signInWithGoogle()
-            .then((result) => {
-                const userInfo = {
-                    email: result.user?.email,
-                    name: result.user?.displayName,
-                    image: result.user?.photoURL
-                };
-                axiosPublic.post('/users', userInfo)
-                    .then(res => {
-                        console.log(res.data);
-                        toast.success('Successfully login with Google!');
-                        navigate(from, { replace: true });
-                    })
-                    .catch(err => {
-                        console.error(err);
-                        toast.error('Failed to save user information.');
-                    });
-            })
-            .catch((error) => {
-                console.error(error);
-                toast.error("Cannot sign in, please try again.");
-            });
-    };
+          .then((result) => {
+            const userInfo = { /* ... */ };
+            // Navigate only after the POST request succeeds
+            axiosPublic.post('/users', userInfo)
+              .then(() => {
+                toast.success('Logged in with Google!');
+                navigate(from, { replace: true }); // Navigate here
+              })
+              .catch((err) => {
+                toast.error('Failed to save user info.');
+                navigate('/login'); // Optional: Redirect back on failure
+              });
+          })
+          .catch((error) => {
+            toast.error('Google login failed.');
+          });
+      };
 
     return (
         <div className="min-h-screen flex flex-col-reverse md:flex-row items-center justify-center p-6 bg-gray-50 dark:bg-gray-900">
