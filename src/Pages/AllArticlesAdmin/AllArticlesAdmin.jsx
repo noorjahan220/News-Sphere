@@ -11,15 +11,16 @@ const AllArticlesAdmin = () => {
 
   useEffect(() => {
     axiosSecure
-      .get('/pending-articles')
+      .get('/pending-articles') // Fetch the list of pending articles
       .then((response) => {
-        setArticles(response.data);
+        setArticles(response.data); // Set the articles data into state
       })
       .catch((error) => {
         console.error('Error fetching pending articles:', error);
       });
   }, []);
 
+  // Handle the approval of an article
   const handleApprove = (id) => {
     axiosSecure.put(`/approve-article/${id}`).then(() => {
       setArticles(articles.map((article) => article._id === id ? { ...article, isApproved: true } : article));
@@ -30,11 +31,13 @@ const AllArticlesAdmin = () => {
     });
   };
 
+  // Handle declining an article with a reason
   const handleDecline = (id) => {
     setSelectedArticle(id);
-    setModalIsOpen(true);
+    setModalIsOpen(true); // Open the modal to input a decline reason
   };
 
+  // Submit the decline reason and update article status
   const handleDeclineSubmit = () => {
     axiosSecure.patch(`/articles/decline/${selectedArticle}`, { reason: declineReason })
       .then(() => {
@@ -43,7 +46,7 @@ const AllArticlesAdmin = () => {
             ? { ...article, isApproved: false, declineReason }
             : article
         ));
-        setModalIsOpen(false);
+        setModalIsOpen(false); // Close the modal after submission
         Swal.fire('Success!', 'Article has been declined with reason.', 'success'); // Success alert
       })
       .catch((error) => {
@@ -52,6 +55,7 @@ const AllArticlesAdmin = () => {
       });
   };
 
+  // Handle marking an article as premium
   const handleMakePremium = (id) => {
     axiosSecure.patch(`/articles/premium/${id}`).then(() => {
       setArticles(articles.map((article) =>
@@ -64,10 +68,11 @@ const AllArticlesAdmin = () => {
     });
   };
 
+  // Handle deleting an article (only if not approved)
   const handleDelete = (id) => {
     // Find the article by id to check if it is approved
     const articleToDelete = articles.find(article => article._id === id);
-  
+
     // Only allow deletion if the article is not approved
     if (articleToDelete && !articleToDelete.isApproved) {
       Swal.fire({
@@ -149,7 +154,7 @@ const AllArticlesAdmin = () => {
         </tbody>
       </table>
 
-      {/* DaisyUI Modal */}
+      {/* DaisyUI Modal for declining an article */}
       <input type="checkbox" id="decline-modal" className="modal-toggle" checked={modalIsOpen} onChange={() => setModalIsOpen(!modalIsOpen)} />
       <div className="modal">
         <div className="modal-box">

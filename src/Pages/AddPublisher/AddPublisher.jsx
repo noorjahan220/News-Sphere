@@ -9,35 +9,36 @@ const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const AddPublisher = () => {
   const { register, handleSubmit, reset } = useForm();
   const axiosSecure = useAxiosSecure();
+
   const onSubmit = async (data) => {
     try {
-      // Upload image to imgbb
+      // Create FormData for image upload
       const formData = new FormData();
       formData.append("image", data.logo[0]);
 
+      // Upload the image to the image hosting service (ImgBB)
       const imgRes = await axios.post(
         `https://api.imgbb.com/1/upload?key=${image_hosting_key}`,
         formData
       );
 
+      // If image upload is successful
       if (imgRes.data.success) {
         const logoUrl = imgRes.data.data.url;
 
-        // Prepare publisher data
+        // Prepare publisher data to send to the backend
         const publisherData = {
           name: data.name,
           logo: logoUrl,
         };
 
-        // Send publisher data to backend
-        const response = await axiosSecure.post(
-          "/publishers",
-          publisherData
-        );
+        // Send publisher data to backend API
+        const response = await axiosSecure.post("/publishers", publisherData);
 
+        // Handle response
         if (response.data.insertedId) {
           toast.success("Publisher added successfully!");
-          reset();
+          reset(); // Reset form after successful submission
         } else {
           toast.error("Failed to add publisher.");
         }
@@ -62,7 +63,7 @@ const AddPublisher = () => {
           <input
             type="text"
             id="name"
-            {...register("name", { required: true })}
+            {...register("name", { required: "Publisher name is required" })}
             className="w-full border border-gray-300 rounded p-2"
             placeholder="Enter publisher name"
           />
@@ -76,7 +77,7 @@ const AddPublisher = () => {
           <input
             type="file"
             id="logo"
-            {...register("logo", { required: true })}
+            {...register("logo", { required: "Publisher logo is required" })}
             className="w-full border border-gray-300 rounded p-2"
             accept="image/*"
           />
