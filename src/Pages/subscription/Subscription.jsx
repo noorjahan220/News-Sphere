@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useQueryClient } from '@tanstack/react-query';
 import useAxiosSecure from '../../hooks/useAxiosSecure';  
 
 const Subscription = () => {
   const navigate = useNavigate();
   const axiosSecure = useAxiosSecure();
+  const queryClient = useQueryClient(); // React Query Client for invalidating/refetching queries
 
   const subscriptionOptions = [
     { value: '1', label: '1 Minute', price: 1, description: 'Perfect for quick trial and exploration.' },
@@ -16,18 +18,22 @@ const Subscription = () => {
 
   const handleSubscription = async () => {
     try {
+      // Update the subscription status on the backend
       const response = await axiosSecure.patch('/update-subscription', {
         subscriptionPeriod: selectedOption.value,
       });
-  
+
+      // Show success message
       alert(response.data.message);
+
+      // Invalidate the subscription status query to refresh data
+      queryClient.invalidateQueries(['subscriptionStatus']); // Make sure the key matches your subscription query
       navigate('/payment', { state: { selectedPeriod: selectedOption.value, price: selectedOption.price } });
     } catch (error) {
       alert('Error updating subscription, please try again.');
       console.error('Error updating subscription:', error);
     }
   };
- 
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-6">

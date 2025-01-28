@@ -3,15 +3,15 @@ import { Link } from 'react-router-dom';
 import useAxiosPublic from '../../hooks/useAxiosPublic';
 
 const Article = ({ article, user }) => {
-  const { title, image, Description, tags, _id, isPremium } = article;
+  const { title, image, Description, tags = [], _id, isPremium } = article; // Fallback to empty array for tags
   const axiosPublic = useAxiosPublic();
 
- 
+  // Safe description: ensures the description is not too long
   const safeDescription = Description ? Description.substring(0, 150) : 'No description available';
 
+  // Update view count
   const handleViewUpdate = async () => {
     try {
-    
       await axiosPublic.post(`/update-view/${_id}`);
     } catch (error) {
       console.error('Error updating view count:', error);
@@ -25,14 +25,22 @@ const Article = ({ article, user }) => {
       </figure>
       <div className="card-body p-6">
         <h2 className="card-title text-2xl font-semibold text-gray-800">{title}</h2>
+
+        {/* Tags - Ensure 'tags' is always an array */}
         <div className="flex gap-2 my-2">
-          {tags.map((tag, index) => (
-            <div key={index} className="badge badge-outline bg-gray-200 text-gray-700">{tag}</div>
-          ))}
+          {tags.length > 0 ? (
+            tags.map((tag, index) => (
+              <div key={index} className="badge badge-outline bg-gray-200 text-gray-700">{tag}</div>
+            ))
+          ) : (
+            <div className="badge badge-outline bg-gray-200 text-gray-700">No tags available</div>
+          )}
         </div>
-        <p>{ safeDescription}...</p>
+
+        {/* Description */}
+        <p>{safeDescription}...</p>
+
         <div className="card-actions justify-end mt-4">
-         
           <Link to={`/details/${_id}`}>
             <button
               className={`btn btn-primary ${isPremium && !user?.premiumTaken ? 'btn-disabled' : ''}`}

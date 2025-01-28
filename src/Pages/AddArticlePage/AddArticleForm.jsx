@@ -48,12 +48,27 @@ const AddArticle = () => {
 
   const onSubmit = async (data) => {
     try {
+      // Check if the user is a premium or normal user
+      if (user?.premiumTaken === null) {
+        // Check if the user has already published an article
+        const response = await axiosPublic.get(`/articles?email=${user?.email}`);
+        
+        if (response.data.length > 0) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Submission Failed',
+            text: 'You can only submit one article as a normal user. Please upgrade to a premium plan for unlimited submissions.',
+          });
+          return;
+        }
+      }
+  
       const formData = new FormData();
       formData.append('image', data.image[0]);
-
+  
       const imgRes = await axios.post(`https://api.imgbb.com/1/upload?key=${img_hosting_key}`, formData);
       const imageUrl = imgRes.data.data.url;
-
+  
       const articleData = {
         title: data.title,
         description: data.description,
@@ -67,7 +82,7 @@ const AddArticle = () => {
         name: user?.displayName,
         userImg: user?.photoURL,
       };
-
+  
       const response = await axiosPublic.post('/articles', articleData);
       if (response.data.insertedId) {
         Swal.fire({
@@ -84,6 +99,7 @@ const AddArticle = () => {
       });
     }
   };
+  
 
   return (
     <div className="add-article-page pt-32">

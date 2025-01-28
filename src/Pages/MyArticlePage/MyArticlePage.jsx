@@ -1,51 +1,74 @@
-import React, { useState, useEffect } from 'react';
-import Modal from '../../Modal/Modal';
-import { useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { AuthContext } from '../../Providers/AuthProvider';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
 import { useNavigate } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
+import Swal from 'sweetalert2';
 
 const MyArticlePage = () => {
     const { user } = useContext(AuthContext);
-    const [articles, setArticles] = useState([]);
     const [modalOpen, setModalOpen] = useState(false);
     const [declineReason, setDeclineReason] = useState('');
     const axiosSecure = useAxiosSecure();
     const navigate = useNavigate();
 
-    useEffect(() => {
-        axiosSecure
-            .get('/my-articles') 
-            .then((response) => {
-                setArticles(response.data); 
-            })
-            .catch((error) => {
-                console.error('Error fetching user articles:', error);
-                setArticles([]); 
-            });
-    }, [axiosSecure]);
+    // Fetch user articles using TanStack Query (v5)
+    const { data: articles = [], isError, isLoading, refetch } = useQuery({
+        queryKey: ['my-articles'],
+        queryFn: async () => {
+            const response = await axiosSecure.get('/my-articles');
+            return response.data;
+        }
+    });
 
-    // Open modal with decline reason
-    const openDeclineReasonModal = (reason) => {
-        setDeclineReason(reason);
-        setModalOpen(true);
-    };
+    useEffect(() => {
+        // Automatically open modal if the article is declined
+        articles.forEach((article) => {
+            if (article.isDeclined) {
+                setDeclineReason(article.declineReason);
+                setModalOpen(true); // Open the modal if the article is declined
+            }
+        });
+    }, [articles]); // Only run this when articles are fetched or updated
+
+    if (isLoading) {
+        return <div>Loading...</div>;
+    }
+
+    if (isError) {
+        return <div>Error loading articles</div>;
+    }
 
     // Close the modal
     const closeModal = () => {
-        setModalOpen(false);
+        setModalOpen(false); // Close the modal when the "Close" button is clicked
     };
 
-    // Handle article deletion
+    // Handle article deletion with SweetAlert confirmation
     const handleDelete = (articleId) => {
-        axiosSecure
-            .delete(`/articles/${articleId}`)
-            .then(() => {
-                setArticles((prevArticles) => prevArticles.filter(article => article._id !== articleId));
-            })
-            .catch((error) => {
-                console.error('Error deleting article:', error);
-            });
+        Swal.fire({
+            title: 'Are you sure?',
+            text: 'You won\'t be able to revert this!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'No, cancel!',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Proceed with deletion if confirmed
+                axiosSecure
+                    .delete(`/articles/${articleId}`)
+                    .then(() => {
+                        // Trigger a refetch to update the articles list
+                        Swal.fire('Deleted!', 'Your article has been deleted.', 'success');
+                        refetch(); // Refetch the articles from the server
+                    })
+                    .catch((error) => {
+                        console.error('Error deleting article:', error);
+                        Swal.fire('Error!', 'There was an error deleting the article.', 'error');
+                    });
+            }
+        });
     };
 
     return (
@@ -70,7 +93,7 @@ const MyArticlePage = () => {
                             <td className="border border-gray-300 px-4 py-2">
                                 <button
                                     className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600"
-                                    onClick={() => navigate(`/articles/${article._id}`)}
+                                    onClick={() => navigate(`/details/${article._id}`)}
                                 >
                                     View Details
                                 </button>
@@ -81,12 +104,6 @@ const MyArticlePage = () => {
                                 ) : article.isDeclined ? (
                                     <>
                                         <span className="text-red-600 font-bold">Declined</span>
-                                        <button
-                                            className="bg-red-500 text-white px-3 py-1 rounded ml-2 hover:bg-red-600"
-                                            onClick={() => openDeclineReasonModal(article.declineReason)}
-                                        >
-                                            View Reason
-                                        </button>
                                     </>
                                 ) : (
                                     <span className="text-yellow-600 font-bold">Pending</span>
@@ -98,7 +115,7 @@ const MyArticlePage = () => {
                             <td className="border border-gray-300 px-4 py-2 space-x-2">
                                 <button
                                     className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600"
-                                    onClick={() => navigate(`/articles/edit/${article._id}`)}
+                                    onClick={() => navigate(`/update/${article._id}`)}
                                 >
                                     Update
                                 </button>
@@ -114,17 +131,22 @@ const MyArticlePage = () => {
                 </tbody>
             </table>
 
+            {/* DaisyUI Modal for Decline Reason */}
             {modalOpen && (
-                <Modal isOpen={modalOpen} onClose={closeModal}>
-                    <h2 className="text-xl font-bold mb-4">Decline Reason</h2>
-                    <p className="mb-4">{declineReason}</p>
-                    <button
-                        className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600"
-                        onClick={closeModal}
-                    >
-                        Close
-                    </button>
-                </Modal>
+                <div className="modal modal-open">
+                    <div className="modal-box">
+                        <h2 className="text-xl font-bold mb-4">Decline Reason</h2>
+                        <p className="mb-4">{declineReason || 'No reason provided'}</p>
+                        <div className="modal-action">
+                            <button
+                                className="btn btn-secondary"
+                                onClick={closeModal}
+                            >
+                                Close
+                            </button>
+                        </div>
+                    </div>
+                </div>
             )}
         </div>
     );

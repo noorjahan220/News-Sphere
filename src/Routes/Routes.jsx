@@ -22,6 +22,8 @@ import Subscription from "../Pages/subscription/Subscription";
 import PaymentPage from "../Pages/subscription/PaymentPage";
 import MyProfilePage from './../Pages/MyProfilePage/MyProfilePage';
 import PremiumArticles from "../Pages/PremiumArticles/PremiumArticles";
+import UpdateArticles from "../Pages/MyArticlePage/UpdateArticles";
+import AdminHome from "../Pages/Dashboard/AllUsers/AdminHome/AdminHome";
 
 export const router = createBrowserRouter([
   {
@@ -38,29 +40,33 @@ export const router = createBrowserRouter([
       },
       {
         path: 'myArticles',
-        element: <MyArticlePage />
+        element: <PrivateRoute><MyArticlePage /></PrivateRoute>
       },
       {
         path: 'myProfile',
-        element: <MyProfilePage/>
+        element: <PrivateRoute><MyProfilePage /></PrivateRoute>
       },
       {
         path: 'subscription',
-        element: <Subscription />
+        element: <PrivateRoute><Subscription /></PrivateRoute>
       },
       {
         path: 'payment',
         element: <PaymentPage />
       },
       {
+        path: 'Update/:id',
+        element: <UpdateArticles />
+      },
+      {
         path: 'details/:id',
         element: (
-            <PrivateRoute>
-                <Details />
-            </PrivateRoute>
+          <PrivateRoute>
+            <Details />
+          </PrivateRoute>
         ),
-        
-    },
+
+      },
       {
         path: 'login',
         element: <Login />
@@ -75,29 +81,33 @@ export const router = createBrowserRouter([
       },
       {
         path: "addArticle",
-        element: <AddArticle/>
+        element: <PrivateRoute><AddArticle /></PrivateRoute>
       },
       {
         path: "premium",
-        element: <PremiumArticles/>
+        element: <PrivateRoute><PremiumArticles /></PrivateRoute>
       },
     ]
   },
   {
-    path:'dashboard',
-    element:<AdminRoute><Dashboard/></AdminRoute>,
-    children:[
+    path: 'dashboard',
+    element: <AdminRoute><Dashboard /></AdminRoute>,
+    children: [
       {
-        path:'allUsers',
-        element:<AllUsers/>
+        path: 'allUsers',
+        element: <AllUsers />
       },
       {
-        path:'addPublisher',
-        element:<AddPublisher/>
+        path: 'addPublisher',
+        element: <AddPublisher />
       },
       {
-        path:'allArticlesAdmin',
-        element:<AllArticlesAdmin/>
+        path: 'allArticlesAdmin',
+        element: <AllArticlesAdmin />
+      },
+      {
+        path: 'adminHome',
+        element: <AdminHome />
       },
       {
         path: "*",

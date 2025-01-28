@@ -5,13 +5,13 @@ import useAxiosSecure from '../../hooks/useAxiosSecure'; // Assuming this hook i
 const PremiumArticles = () => {
   const axiosSecure = useAxiosSecure();
 
-  const { data: premiumArticles = [], isLoading, isError } = useQuery(
-    'premiumArticles',
-    async () => {
+  const { data: premiumArticles = [], isLoading, isError } = useQuery({
+    queryKey: ['premiumArticles'], // Use an array as the query key
+    queryFn: async () => {
       const { data } = await axiosSecure('/premium-articles');
       return data;
-    }
-  );
+    },
+  });
 
   if (isLoading) {
     return <span className="loading loading-bars loading-lg"></span>;
