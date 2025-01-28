@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import Select from 'react-select';
 import { useForm } from 'react-hook-form';
@@ -6,28 +7,27 @@ import useAxiosPublic from '../../hooks/useAxiosPublic';
 import { useContext } from 'react';
 import { AuthContext } from '../../Providers/AuthProvider';
 import Swal from 'sweetalert2'; // SweetAlert2 for notifications
+import { useNavigate } from 'react-router-dom';
 
 const img_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 
-const AddArticle = () => {
+const AddArticleForm = () => {
   const { user } = useContext(AuthContext);
-  const [publishers, setPublishers] = useState([]);
   const [tags, setTags] = useState([]);
   const [imagePreview, setImagePreview] = useState('');
   const { register, handleSubmit, setValue } = useForm();
   const axiosPublic = useAxiosPublic();
+ const navigate = useNavigate()
+  // Use Tanstack Query to fetch publishers
+  const { data: publishers = [], isLoading, isError } = useQuery({
+    queryKey: ['publishers'],
+    queryFn: async () => {
+      const { data } = await axiosPublic.get('/publishers');
+      return data.map(pub => ({ value: pub.name, label: pub.name }));
+    },
+  });
 
   useEffect(() => {
-    const fetchPublishers = async () => {
-      try {
-        const { data } = await axiosPublic.get('/publishers');
-        setPublishers(data.map(pub => ({ value: pub.name, label: pub.name })));
-      } catch (error) {
-        console.error('Failed to fetch publishers:', error);
-      }
-    };
-    fetchPublishers();
-
     setTags([
       { value: 'Politics', label: 'Politics' },
       { value: 'Sports', label: 'Sports' },
@@ -48,9 +48,7 @@ const AddArticle = () => {
 
   const onSubmit = async (data) => {
     try {
-      // Check if the user is a premium or normal user
       if (user?.premiumTaken === null) {
-        // Check if the user has already published an article
         const response = await axiosPublic.get(`/articles?email=${user?.email}`);
         
         if (response.data.length > 0) {
@@ -90,6 +88,9 @@ const AddArticle = () => {
           title: 'Article Submitted!',
           text: 'Your article has been submitted successfully for admin approval.',
         });
+        
+        // Navigate to the "My Articles" page (or any page where you want to show the user's articles)
+        navigate('/myArticles');  // Replace with your actual route
       }
     } catch (error) {
       Swal.fire({
@@ -99,28 +100,35 @@ const AddArticle = () => {
       });
     }
   };
-  
+
+  if (isLoading) {
+    return <div>Loading publishers...</div>;
+  }
+
+  if (isError) {
+    return <div>Error fetching publishers</div>;
+  }
 
   return (
-    <div className="add-article-page pt-32">
-      <div className="max-w-4xl mx-auto shadow-lg p-6 bg-white rounded-lg">
-        <h1 className="text-2xl font-semibold mb-6 text-center">Add New Article</h1>
+    <div className="add-article-page pt-8 pb-8 sm:pt-16 sm:pb-16">
+      <div className="max-w-4xl mx-auto shadow-lg p-6 sm:p-8 bg-white rounded-lg border-t-4 border-blue-500">
+        <h1 className="text-2xl sm:text-3xl font-semibold mb-6 text-center text-blue-600">Add New Article</h1>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
           <div>
-            <label className="block text-sm font-medium mb-1">Title</label>
+            <label className="block text-sm sm:text-base font-medium mb-2">Title</label>
             <input
               type="text"
               {...register('title', { required: true })}
               placeholder="Enter article title"
-              className="w-full p-2 border rounded-lg focus:outline-none focus:ring"
+              className="w-full p-3 border rounded-lg focus:outline-none focus:ring focus:ring-blue-200"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium mb-1">Publisher</label>
+            <label className="block text-sm sm:text-base font-medium mb-2">Publisher</label>
             <select
               {...register('publisher', { required: true })}
-              className="w-full p-2 border rounded-lg focus:outline-none focus:ring"
+              className="w-full p-3 border rounded-lg focus:outline-none focus:ring focus:ring-blue-200"
             >
               <option value="">Select a publisher</option>
               {publishers.map(publisher => (
@@ -132,44 +140,47 @@ const AddArticle = () => {
           </div>
 
           <div>
-            <label className="block text-sm font-medium mb-1">Tags</label>
+            <label className="block text-sm sm:text-base font-medium mb-2">Tags</label>
             <Select
               isMulti
               options={tags}
               onChange={(selectedOptions) => setValue('tags', selectedOptions)}
+              className="w-full"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium mb-1">Description</label>
+            <label className="block text-sm sm:text-base font-medium mb-2">Description</label>
             <textarea
               {...register('description', { required: true })}
               placeholder="Write article description"
               rows={4}
-              className="w-full p-2 border rounded-lg focus:outline-none focus:ring"
+              className="w-full p-3 border rounded-lg focus:outline-none focus:ring focus:ring-blue-200"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium mb-1">Image</label>
+            <label className="block text-sm sm:text-base font-medium mb-2">Image</label>
             <input
               type="file"
               {...register('image', { required: true })}
               onChange={handleImageUpload}
-              className="w-full p-2 border rounded-lg focus:outline-none focus:ring"
+              className="w-full p-3 border rounded-lg focus:outline-none focus:ring focus:ring-blue-200"
             />
             {imagePreview && (
-              <img
-                src={imagePreview}
-                alt="Preview"
-                className="mt-4 w-32 h-32 object-cover rounded-lg shadow-md"
-              />
+              <div className="mt-4 text-center">
+                <img
+                  src={imagePreview}
+                  alt="Preview"
+                  className="w-40 h-40 object-cover rounded-lg shadow-md mx-auto"
+                />
+              </div>
             )}
           </div>
 
           <button
             type="submit"
-            className="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 rounded-lg"
+            className="w-full bg-blue-500 hover:bg-blue-600 text-white py-3 rounded-lg transition duration-300"
           >
             Submit Article
           </button>
@@ -179,4 +190,4 @@ const AddArticle = () => {
   );
 };
 
-export default AddArticle;
+export default AddArticleForm;
