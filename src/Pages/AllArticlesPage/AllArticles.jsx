@@ -3,7 +3,8 @@ import Article from './Article';
 import useAxiosPublic from '../../hooks/useAxiosPublic';
 import { useQuery } from '@tanstack/react-query';
 import { useContext } from 'react';
-import { AuthContext } from '../../context/AuthProvider'; // Assuming AuthContext is used
+import { AuthContext } from '../../Providers/AuthProvider';
+
 
 const AllArticles = () => {
   const [publisher, setPublisher] = useState('');

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
 
-const CheckoutForm = ({ price , onPaymentSuccess}) => {
+const CheckoutForm = ({ price, onPaymentSuccess }) => {
     const stripe = useStripe();
     const elements = useElements();
     const [clientSecret, setClientSecret] = useState('');
@@ -42,9 +42,8 @@ const CheckoutForm = ({ price , onPaymentSuccess}) => {
       
         const { error, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
           payment_method: paymentMethod.id,
-          
         });
-        console.log("Amount to be paid:", price * 100)
+
         if (error) {
           setPaymentError(error.message);
           setProcessing(false);
@@ -58,26 +57,35 @@ const CheckoutForm = ({ price , onPaymentSuccess}) => {
             onPaymentSuccess();
           }
         }
-      };
-      
+    };
 
     return (
-        <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="border rounded-lg p-4 bg-gray-50">
-                <CardElement className="p-2" />
-            </div>
-            {paymentError && <div className="text-red-500 text-sm">{paymentError}</div>}
-            <button
-                type="submit"
-                disabled={processing || !stripe || !clientSecret}
-                className={`w-full py-2 px-4 rounded-lg text-white ${
-                    processing ? 'bg-gray-400' : 'bg-blue-600 hover:bg-blue-700'
-                }`}
-            >
-                {processing ? 'Processing...' : `Pay $${price}`}
-            </button>
-            {paymentError && <p className='text-red-600'>{paymentError}</p>}
-        </form>
+        <div className="max-w-2xl mx-auto p-6 bg-white shadow-lg rounded-lg">
+            <form onSubmit={handleSubmit} className="space-y-6">
+                <h2 className="text-2xl font-semibold text-gray-800 text-center">Complete Your Payment</h2>
+                
+                <div className="border rounded-lg p-4 bg-gray-50">
+                    <CardElement className="p-2" />
+                </div>
+                
+                {paymentError && <div className="text-red-500 text-sm">{paymentError}</div>}
+
+                <div className="flex justify-between items-center">
+                    <span className="text-lg text-gray-700">Amount: <strong>${price}</strong></span>
+                    <button
+                        type="submit"
+                        disabled={processing || !stripe || !clientSecret}
+                        className={`py-2 px-6 rounded-lg text-white font-medium w-full sm:w-auto ${
+                            processing ? 'bg-gray-400' : 'bg-blue-600 hover:bg-blue-700'
+                        } transition-colors`}
+                    >
+                        {processing ? 'Processing...' : `Pay $${price}`}
+                    </button>
+                </div>
+
+                {paymentError && <p className='text-red-600 text-center'>{paymentError}</p>}
+            </form>
+        </div>
     );
 };
 

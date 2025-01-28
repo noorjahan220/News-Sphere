@@ -4,6 +4,7 @@ import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
 import CheckoutForm from './CheckoutForm';
 import Swal from 'sweetalert2';
+
 // TODO: add publishable key
 const stripePromise = loadStripe(import.meta.env.VITE_Payment_Gateway_Pk); // Replace with your Stripe publishable key
 
@@ -11,7 +12,8 @@ const PaymentPage = () => {
     const location = useLocation();
     const { state } = location;
     const { selectedPeriod, price } = state || {}; // Extract subscription details
-    const navigate =useNavigate()
+    const navigate = useNavigate();
+
     // Function to format selectedPeriod into readable text
     const formatPeriod = (period) => {
         switch (period) {
@@ -25,6 +27,7 @@ const PaymentPage = () => {
                 return 'Unknown Period'; // Fallback for invalid or missing periods
         }
     };
+
     const handlePaymentSuccess = () => {
         // Show a SweetAlert success message
         Swal.fire({
@@ -39,8 +42,8 @@ const PaymentPage = () => {
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-6">
-            <div className="max-w-xl w-full bg-white shadow-lg rounded-lg p-8">
-                <h1 className="text-3xl font-bold text-center text-gray-800 mb-6">Complete Your Payment</h1>
+            <div className="max-w-lg w-full bg-white shadow-lg rounded-lg p-8 space-y-6">
+                <h1 className="text-3xl font-bold text-center text-gray-800 mb-4">Complete Your Payment</h1>
 
                 {price ? (
                     <>
@@ -52,11 +55,11 @@ const PaymentPage = () => {
                         </p>
 
                         <Elements stripe={stripePromise}>
-                            <CheckoutForm price={price} onPaymentSuccess={handlePaymentSuccess}  />
+                            <CheckoutForm price={price} onPaymentSuccess={handlePaymentSuccess} />
                         </Elements>
                     </>
                 ) : (
-                    <p className="text-red-500 font-medium">No subscription details found. Please go back and select a plan.</p>
+                    <p className="text-red-500 font-medium text-center">No subscription details found. Please go back and select a plan.</p>
                 )}
             </div>
         </div>
