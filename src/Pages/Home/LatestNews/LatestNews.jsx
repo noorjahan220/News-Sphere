@@ -1,87 +1,109 @@
 import React from 'react';
-import { useQuery } from '@tanstack/react-query';
+import PropTypes from 'prop-types';
+import {
+  ChatBubbleLeftRightIcon,
+  UsersIcon,
+  HeartIcon,
+  ChartBarIcon
+} from '@heroicons/react/24/outline';
 
-import useAxiosPublic from '../../../hooks/useAxiosPublic';
-
-
-const axiosPublic = useAxiosPublic()
-const fetchLatestNews = async () => {
-  const response = await axiosPublic .get('/news/latest');
-  return response.data; // Return the fetched articles
-};
-
-const LatestNews = () => {
-  const { data: articles = [], isLoading, isError } = useQuery({
-    queryKey: ['latestNews'],
-    queryFn: fetchLatestNews,
-  });
-
-  if (isLoading) {
-    return (
-      <section className="latest-news py-16 bg-gray-100">
-        <div className="container mx-auto text-center">
-          <h3 className="text-3xl font-bold mb-8">Latest News</h3>
-          <p className="text-gray-500">Loading latest news...</p>
-        </div>
-      </section>
-    );
-  }
-
-  if (isError) {
-    return (
-      <section className="latest-news py-16 bg-gray-100">
-        <div className="container mx-auto text-center">
-          <h3 className="text-3xl font-bold mb-8">Latest News</h3>
-          <p className="text-red-500">Failed to load latest news. Please try again later.</p>
-        </div>
-      </section>
-    );
-  }
+const LatestNews = ({ newsData = {} }) => {
+  const { trendingNews = [], topStories = null, dailyHeadlines = null } = newsData;
 
   return (
-    <section className="latest-news py-16 bg-gray-100">
-      <div className="container mx-auto text-center">
-        <h3 className="text-3xl font-bold mb-8">Latest News</h3>
-        {articles.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {articles.map((article) => (
-              <div
-                key={article._id}
-                className="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow"
-              >
-                <img
-                  src={article.image}
-                  alt={article.title}
-                  className="w-full h-40 object-cover rounded-lg mb-4"
-                />
-                <h4 className="font-semibold text-lg mb-2 hover:text-blue-500">
-                  <a href={`/article/${article._id}`}>{article.title}</a>
-                </h4>
-                <p className="text-gray-600 text-sm mb-4">
-                  {article.description.slice(0, 100)}...
-                </p>
-                <div className="text-gray-500 text-xs mb-2">
-                  Published on: {new Date(article.createdAt).toLocaleDateString()}
-                </div>
-                <div className="text-gray-500 text-xs">
-                  {article.tags.map((tag, index) => (
-                    <span
-                      key={index}
-                      className="inline-block bg-gray-200 px-2 py-1 rounded-full mr-2"
-                    >
-                      #{tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
+    <section className="bg-gray-50 py-16 px-4 lg:px-8">
+      {/* Trending News Section */}
+      <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
+        <div className="flex items-center gap-3 mb-4">
+          <ChatBubbleLeftRightIcon 
+            className="w-6 h-6 text-blue-600" 
+            aria-label="Chat icon for trending news" 
+          />
+          <h3 className="text-xl font-semibold">Trending News</h3>
+        </div>
+        {trendingNews.length > 0 ? (
+          <ul className="space-y-2">
+            {trendingNews.map((news, index) => (
+              <li key={index} className="text-gray-600">
+                {news.headline}
+              </li>
             ))}
+          </ul>
+        ) : (
+          <p className="text-gray-500">No trending news at the moment.</p>
+        )}
+      </div>
+
+      {/* Top Stories Section */}
+      <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
+        <div className="flex items-center gap-3 mb-4">
+          <UsersIcon 
+            className="w-6 h-6 text-green-600" 
+            aria-label="Users icon for top stories" 
+          />
+          <h3 className="text-xl font-semibold">Top Stories</h3>
+        </div>
+        {topStories ? (
+          <div className="text-gray-600">
+            <p>
+              <span className="font-semibold">{topStories.title}</span> 
+              is making waves. The story has gained significant traction across major platforms.
+            </p>
+            <p className="text-gray-500 text-sm">{topStories.summary}</p>
           </div>
         ) : (
-          <p className="text-gray-500">No latest news available.</p>
+          <p className="text-gray-500">No top stories available.</p>
+        )}
+      </div>
+
+      {/* Daily Headlines Section */}
+      <div className="bg-white rounded-xl shadow-lg p-6">
+        <div className="flex items-center gap-3 mb-4">
+          <ChartBarIcon 
+            className="w-6 h-6 text-purple-600" 
+            aria-label="Chart icon for daily headlines" 
+          />
+          <h3 className="text-xl font-semibold">Daily Headlines</h3>
+        </div>
+        {dailyHeadlines?.articles?.length > 0 ? (
+          <div className="text-gray-600">
+            <p className="mb-2">{dailyHeadlines.headline}</p>
+            <ul className="space-y-1">
+              {dailyHeadlines.articles.map((article, index) => (
+                <li key={index} className="flex items-center gap-2">
+                  <HeartIcon className="w-4 h-4 text-red-500" />
+                  {article.title}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : (
+          <p className="text-gray-500">No daily headlines available at the moment.</p>
         )}
       </div>
     </section>
   );
+};
+
+// Prop Validation
+LatestNews.propTypes = {
+  newsData: PropTypes.shape({
+    trendingNews: PropTypes.arrayOf(
+      PropTypes.shape({
+        headline: PropTypes.string.isRequired
+      })
+    ),
+    topStories: PropTypes.shape({
+      title: PropTypes.string.isRequired,
+      summary: PropTypes.string.isRequired
+    }),
+    dailyHeadlines: PropTypes.shape({
+      headline: PropTypes.string.isRequired,
+      articles: PropTypes.arrayOf(PropTypes.shape({
+        title: PropTypes.string.isRequired
+      })).isRequired
+    })
+  })
 };
 
 export default LatestNews;

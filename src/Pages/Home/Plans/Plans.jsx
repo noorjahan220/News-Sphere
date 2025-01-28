@@ -1,11 +1,13 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Plans = () => {
+  const navigate = useNavigate();
   const plans = [
     {
-      title: "1 Day Trial",
-      price: "Free",
-      duration: "1 Day Access",
+      title: "1 minute Trial",
+      price: "1$",
+      duration: "1 minute Access",
       features: [
         "Basic Articles Access",
         "Limited Premium Content",
@@ -17,7 +19,7 @@ const Plans = () => {
     },
     {
       title: "Premium Plan",
-      price: "$9.99",
+      price: "$10",
       duration: "5 Days Access",
       features: [
         "All Premium Articles",
@@ -31,7 +33,7 @@ const Plans = () => {
     },
     {
       title: "Pro Plan",
-      price: "$19.99",
+      price: "$20",
       duration: "10 Days Access",
       features: [
         "All Premium Features",
@@ -97,7 +99,7 @@ const Plans = () => {
                     </li>
                   ))}
                 </ul>
-                <button
+                <button onClick={()=>navigate('/subscription')}
                   className={`w-full py-3 px-6 rounded-lg font-semibold transition-all duration-300 ${
                     plan.popular 
                       ? "bg-gradient-to-r from-purple-500 to-indigo-500 hover:from-indigo-500 hover:to-purple-500 text-white"

@@ -4,12 +4,35 @@ import Banner from '../Banner/Banner';
 import AllPublishers from '../AllPublishers/AllPublishers';
 import Statistics from '../Statistics/Statistics';
 import Plans from '../Plans/Plans';
-import FeaturedArticles from '../fituredArticles/FeaturedArticles';
+
 import LatestNews from '../LatestNews/LatestNews';
+import NewsLetter from '../NewsLetter/NewsLetter';
+
 
 const Home = () => {
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
+
+  // Mock data for communityData
+  const newsData = {
+    trendingNews: [
+      { headline: "New Government Policy Affects Small Businesses" },
+      { headline: "Groundbreaking Discovery in Space Exploration" },
+      { headline: "Stock Market Hits Record High" }
+    ],
+    topStories: {
+      title: "Climate Change: How It's Impacting Our Future",
+      summary: "A comprehensive look at the latest research and global reactions to the climate crisis."
+    },
+    dailyHeadlines: {
+      headline: "Global Economic Forecast for 2025",
+      articles: [
+        { title: "Impact of Inflation on Global Markets" },
+        { title: "How Unemployment Rates Are Shaping Recovery" },
+        { title: "The Role of Government Policy in Economic Growth" }
+      ]
+    }
+  };
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -35,9 +58,10 @@ const Home = () => {
         <AllPublishers />
         <Statistics />
         <Plans />
-        <FeaturedArticles />
-        <LatestNews />
-      </div>
+        
+        
+        {newsData && <LatestNews newsData={newsData} />}
+        <NewsLetter/>      </div>
 
       {/* Subscription Modal */}
       {showModal && (
