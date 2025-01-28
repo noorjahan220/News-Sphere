@@ -4,15 +4,15 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Providers/AuthProvider';
 import toast from 'react-hot-toast';
 
+import useAxiosPublic from '../../hooks/useAxiosPublic';
+
 const Login = () => {
     const { signIn, signInWithGoogle } = useContext(AuthContext);
     const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
- 
     const location = useLocation();
-
-    const from = location.state?.from?.pathname || "/"
-
+    const from = location.state?.from?.pathname || "/";
+    const axiosPublic =useAxiosPublic()
     const handleSignin = (e) => {
         e.preventDefault();
         const form = e.target;
@@ -21,59 +21,45 @@ const Login = () => {
 
         signIn(email, password)
             .then((result) => {
-                const user = result.user
+                const user = result.user;
                 toast.success('Successfully LogIn!');
-                navigate(from,{ replace: true});
-                
+                navigate(from, { replace: true });
             })
             .catch((error) => {
-               
                 toast.error('Failed to log in. Please check your credentials.');
             });
-            
-           
     };
 
     const handleGoogleSignIn = () => {
         signInWithGoogle()
-            .then(() => {
-                const userInfo ={
-                    email : result.user?.email,
+            .then((result) => {
+                const userInfo = {
+                    email: result.user?.email,
                     name: result.user?.displayName,
-                    image : result.user?.photoURL
-                }
-                axiosPublic.post('/users',userInfo)
-                .then(res=>{
-                     console.log(res.data)
-                    toast.success('Successfully login with Google!');
-                    navigate('/');
-                })
+                    image: result.user?.photoURL
+                };
+                axiosPublic.post('/users', userInfo)
+                    .then(res => {
+                        console.log(res.data);
+                        toast.success('Successfully login with Google!');
+                        navigate(from, { replace: true });
+                    })
+                    .catch(err => {
+                        console.error(err);
+                        toast.error('Failed to save user information.');
+                    });
             })
-            .catch(() => {
+            .catch((error) => {
+                console.error(error);
                 toast.error("Cannot sign in, please try again.");
             });
     };
 
     return (
         <div className="min-h-screen flex flex-col-reverse md:flex-row items-center justify-center p-6 bg-gray-50 dark:bg-gray-900">
-             
-            {/* Lottie Animation */}
-            {/* <div className="md:w-1/2 w-full flex items-center justify-center mb-8 md:mb-0">
-                <Lottie
-                    animationData={loginAnimation}
-                    className="w-full max-w-lg"
-                />
-            </div> */}
-
-            {/* Login Form */}
             <div className="w-full max-w-md bg-white dark:bg-gray-800 shadow-lg rounded-lg p-8 transition duration-300 hover:shadow-2xl">
-                <h1
-                    className="text-3xl font-bold text-center mb-6 text-gray-800 dark:text-white"
-                    style={{ fontFamily: 'Poppins, sans-serif' }}
-                >
-                    <span className="bg-gradient-to-r from-teal-500 to-teal-600 bg-clip-text text-transparent">
-                        Login
-                    </span>
+                <h1 className="text-3xl font-bold text-center mb-6 text-gray-800 dark:text-white" style={{ fontFamily: 'Poppins, sans-serif' }}>
+                    <span className="bg-gradient-to-r from-teal-500 to-teal-600 bg-clip-text text-transparent">Login</span>
                 </h1>
                 <form onSubmit={handleSignin} className="space-y-4">
                     <div className="form-group">
@@ -100,9 +86,7 @@ const Login = () => {
                             required
                         />
                         <label className="label">
-                            <a href="#" className="label-text-alt link link-hover text-gray-600 dark:text-gray-400">
-                                Forgot password?
-                            </a>
+                            <a href="#" className="label-text-alt link link-hover text-gray-600 dark:text-gray-400">Forgot password?</a>
                         </label>
                         <button
                             type="button"
@@ -113,9 +97,7 @@ const Login = () => {
                         </button>
                     </div>
                     <div className="form-group mt-6">
-                        <button className="btn w-full bg-gradient-to-r from-teal-400 to-teal-600 text-white rounded-lg shadow hover:shadow-lg hover:scale-105 transition duration-300">
-                            Login
-                        </button>
+                        <button className="btn w-full bg-gradient-to-r from-teal-400 to-teal-600 text-white rounded-lg shadow hover:shadow-lg hover:scale-105 transition duration-300">Login</button>
                     </div>
                     <button
                         type="button"
@@ -126,9 +108,7 @@ const Login = () => {
                     </button>
                     <div className="text-center mt-4 text-gray-600 dark:text-gray-400">
                         Don't have an account?{' '}
-                        <Link to="/signup" className="text-teal-500 hover:underline">
-                            Register
-                        </Link>
+                        <Link to="/signup" className="text-teal-500 hover:underline">Register</Link>
                     </div>
                 </form>
             </div>
