@@ -22,14 +22,13 @@ const MyArticlePage = () => {
     });
 
     useEffect(() => {
-        // Automatically open modal if the article is declined
-        articles.forEach((article) => {
-            if (article.isDeclined) {
-                setDeclineReason(article.declineReason);
-                setModalOpen(true); // Open the modal if the article is declined
-            }
-        });
-    }, [articles]); // Only run this when articles are fetched or updated
+        // Check if any article is declined and set the first decline reason found
+        const declinedArticle = articles.find(article => article.isDeclined);
+        if (declinedArticle) {
+            setDeclineReason(declinedArticle.declineReason || 'No reason provided');
+            setModalOpen(true);
+        }
+    }, [articles]);// Only run this when articles are fetched or updated
 
     if (isLoading) {
         return <div className="text-center py-8">Loading...</div>;
