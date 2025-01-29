@@ -3,14 +3,16 @@ import axios from "axios";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import useAxiosPublic from "../../../hooks/useAxiosPublic";
+
 
 const Banner = () => {
   const [articles, setArticles] = useState([]);
-
+const axiosPublic=useAxiosPublic();
   useEffect(() => {
     const fetchTrendingArticles = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/trending");
+        const response = await axiosPublic.get("trending");
         setArticles(response.data);
       } catch (error) {
         console.error("Error fetching trending articles:", error);
