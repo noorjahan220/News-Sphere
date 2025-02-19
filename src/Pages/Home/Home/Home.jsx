@@ -7,6 +7,7 @@ import Plans from '../Plans/Plans';
 
 import LatestNews from '../LatestNews/LatestNews';
 import NewsLetter from '../NewsLetter/NewsLetter';
+import RecentArticles from '../RecentArticles/RecentArticles';
 
 
 const Home = () => {
@@ -55,6 +56,7 @@ const Home = () => {
       {/* Main Content */}
       <div className=" mx-auto ">
         <Banner />
+        <RecentArticles/>
         <AllPublishers />
         <Statistics />
         <Plans />
