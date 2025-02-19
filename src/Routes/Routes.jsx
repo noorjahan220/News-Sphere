@@ -24,6 +24,7 @@ import MyProfilePage from './../Pages/MyProfilePage/MyProfilePage';
 import PremiumArticles from "../Pages/PremiumArticles/PremiumArticles";
 import UpdateArticles from "../Pages/MyArticlePage/UpdateArticles";
 import AdminHome from "../Pages/Dashboard/AllUsers/AdminHome/AdminHome";
+import AboutUs from "../Pages/AboutUs/AboutUs";
 
 export const router = createBrowserRouter([
   {
@@ -49,6 +50,10 @@ export const router = createBrowserRouter([
       {
         path: 'subscription',
         element: <PrivateRoute><Subscription /></PrivateRoute>
+      },
+      {
+        path: 'about',
+        element: <AboutUs/>
       },
       {
         path: 'payment',
