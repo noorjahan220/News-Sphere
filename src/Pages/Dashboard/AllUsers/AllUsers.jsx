@@ -10,7 +10,7 @@ const AllUsers = () => {
   const [page, setPage] = useState(1);
   const limit = 8;
 
-  const { data: { users = [], totalUsers = 0 } = {}, refetch } = useQuery({
+  const { data: { users = [], totalUsers = 0 } = {}, refetch, isLoading } = useQuery({
     queryKey: ['users', page],
     queryFn: async () => {
       const res = await axiosSecure.get('/users', {
@@ -34,6 +34,13 @@ const AllUsers = () => {
             timer: 1500,
           });
         }
+      })
+      .catch((err) => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Something went wrong!',
+          text: err.message || 'Unable to make the user an admin.',
+        });
       });
   };
 
@@ -63,6 +70,15 @@ const AllUsers = () => {
   };
 
   const totalPages = Math.ceil(totalUsers / limit);
+
+  if (isLoading) {
+    return (
+      <div className="text-center py-12">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
+        <p className="mt-4">Loading users...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="p-6 bg-gray-50 min-h-screen">
@@ -109,6 +125,7 @@ const AllUsers = () => {
                   <button
                     onClick={() => handleDeleteUser(user)}
                     className="text-red-600 hover:text-red-800"
+                    aria-label={`Delete ${user.name}`}
                   >
                     <FaTrash />
                   </button>
@@ -123,14 +140,14 @@ const AllUsers = () => {
         <button
           onClick={() => setPage(1)}
           disabled={page === 1}
-          className="btn btn-outline btn-primary"
+          className={`btn btn-outline btn-primary ${page === 1 ? 'opacity-50 cursor-not-allowed' : ''}`}
         >
           First
         </button>
         <button
           onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
           disabled={page === 1}
-          className="btn btn-outline btn-primary"
+          className={`btn btn-outline btn-primary ${page === 1 ? 'opacity-50 cursor-not-allowed' : ''}`}
         >
           Previous
         </button>
@@ -138,14 +155,14 @@ const AllUsers = () => {
         <button
           onClick={() => setPage((prev) => Math.min(prev + 1, totalPages))}
           disabled={page === totalPages}
-          className="btn btn-outline btn-primary"
+          className={`btn btn-outline btn-primary ${page === totalPages ? 'opacity-50 cursor-not-allowed' : ''}`}
         >
           Next
         </button>
         <button
           onClick={() => setPage(totalPages)}
           disabled={page === totalPages}
-          className="btn btn-outline btn-primary"
+          className={`btn btn-outline btn-primary ${page === totalPages ? 'opacity-50 cursor-not-allowed' : ''}`}
         >
           Last
         </button>

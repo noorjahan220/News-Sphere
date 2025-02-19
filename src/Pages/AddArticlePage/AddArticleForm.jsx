@@ -110,8 +110,8 @@ const AddArticleForm = () => {
   }
 
   return (
-    <div className="add-article-page pt-8 pb-8 sm:pt-16 sm:pb-16">
-      <div className="max-w-4xl mx-auto shadow-lg p-6 sm:p-8 bg-white rounded-lg border-t-4 border-blue-500">
+    <div className="add-article-page pt-8 pb-8 sm:pt-16 sm:pb-16 min-h-screen">
+      <div className="max-w-4xl mx-auto shadow-lg p-6 sm:p-8 bg-white rounded-lg border-t-4 border-blue-600">
         <h1 className="text-2xl sm:text-3xl font-semibold mb-6 text-center text-blue-600">Add New Article</h1>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
           <div>
@@ -180,7 +180,8 @@ const AddArticleForm = () => {
 
           <button
             type="submit"
-            className="w-full bg-blue-500 hover:bg-blue-600 text-white py-3 rounded-lg transition duration-300"
+            className="w-full bg-gradient-to-r from-teal-400 to-blue-500 text-white py-3 px-6 rounded-lg font-semibold 
+                         hover:from-teal-500 hover:to-blue-600 transition-all duration-300 shadow-lg hover:shadow-xl"
           >
             Submit Article
           </button>

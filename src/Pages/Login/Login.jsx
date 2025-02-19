@@ -4,13 +4,16 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Providers/AuthProvider';
 import toast from 'react-hot-toast';
 import useAxiosPublic from '../../hooks/useAxiosPublic';
+import Lottie from 'lottie-react';
+import loginAnimation from '../../assets/login.json';
+// import { Helmet } from 'react-helmet-async';
 
 const Login = () => {
     const { signIn, signInWithGoogle, user } = useContext(AuthContext);
     const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
     const location = useLocation();
-    const from = location.state?.from?.pathname || "/"; // If redirected, navigate to the previous page
+    const from = location.state?.from?.pathname || "/";
     const axiosPublic = useAxiosPublic();
 
     // Check if user is already logged in
@@ -39,26 +42,37 @@ const Login = () => {
 
     const handleGoogleSignIn = () => {
         signInWithGoogle()
-          .then((result) => {
-            const userInfo = { /* ... */ };
-            // Navigate only after the POST request succeeds
-            axiosPublic.post('/users', userInfo)
-              .then(() => {
-                toast.success('Logged in with Google!');
-                navigate(from, { replace: true }); // Navigate here
-              })
-              .catch((err) => {
-                toast.error('Failed to save user info.');
-                navigate('/login'); // Optional: Redirect back on failure
-              });
-          })
-          .catch((error) => {
-            toast.error('Google login failed.');
-          });
-      };
+            .then((result) => {
+                const userInfo = { email: result.user.email };
+                axiosPublic.post('/users', userInfo)
+                    .then(() => {
+                        toast.success('Logged in with Google!');
+                        navigate(from, { replace: true });
+                    })
+                    .catch((err) => {
+                        toast.error('Failed to save user info.');
+                        navigate('/login'); // Optional: Redirect back on failure
+                    });
+            })
+            .catch((error) => {
+                toast.error('Google login failed.');
+            });
+    };
 
     return (
         <div className="min-h-screen flex flex-col-reverse md:flex-row items-center justify-center p-6 bg-gray-50 dark:bg-gray-900">
+            {/* <Helmet> */}
+                <title>Login Page</title>
+            {/* </Helmet> */}
+            {/* Lottie Animation */}
+            <div className="md:w-1/2 w-full flex items-center justify-center mb-8 md:mb-0">
+                <Lottie
+                    animationData={loginAnimation}
+                    className="w-full max-w-lg"
+                />
+            </div>
+
+            {/* Login Form */}
             <div className="w-full max-w-md bg-white dark:bg-gray-800 shadow-lg rounded-lg p-8 transition duration-300 hover:shadow-2xl">
                 <h1 className="text-3xl font-bold text-center mb-6 text-gray-800 dark:text-white" style={{ fontFamily: 'Poppins, sans-serif' }}>
                     <span className="bg-gradient-to-r from-teal-500 to-teal-600 bg-clip-text text-transparent">Login</span>
@@ -99,7 +113,9 @@ const Login = () => {
                         </button>
                     </div>
                     <div className="form-group mt-6">
-                        <button className="btn w-full bg-gradient-to-r from-teal-400 to-teal-600 text-white rounded-lg shadow hover:shadow-lg hover:scale-105 transition duration-300">Login</button>
+                        <button className="btn w-full bg-gradient-to-r from-teal-400 to-teal-600 text-white rounded-lg shadow hover:shadow-lg hover:scale-105 transition duration-300">
+                            Login
+                        </button>
                     </div>
                     <button
                         type="button"

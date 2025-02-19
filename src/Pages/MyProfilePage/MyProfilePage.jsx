@@ -24,10 +24,10 @@ const MyProfilePage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-teal-500 to-teal-600 p-6">
-      <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-xl p-8">
+    <div className="min-h-screen  p-6">
+      <div className=" mx-auto bg-white shadow-lg rounded-xl p-8">
         <div className="text-center">
-          <h1 className="text-3xl font-bold text-teal-700">My Profile</h1>
+          <h1 className="text-3xl font-bold ">My Profile</h1>
           <p className="text-lg mt-2 text-gray-600">Manage your account details</p>
         </div>
 
@@ -58,7 +58,7 @@ const MyProfilePage = () => {
                 type="url"
                 value={photo}
                 onChange={(e) => setPhoto(e.target.value)}
-                className="mt-2 px-4 py-2 border border-gray-300 rounded-lg w-full focus:ring-2 focus:ring-teal-500"
+                className="mt-2 px-4 py-2 border border-gray-300 rounded-lg w-full focus:ring-2 focus:ring-gradient-to-r from-teal-400 to-blue-500"
               />
             </div>
 
@@ -68,7 +68,8 @@ const MyProfilePage = () => {
               <button
                 type="submit"
                 disabled={loading}
-                className="mt-4 bg-teal-600 hover:bg-teal-700 text-white py-2 px-6 rounded-lg font-medium transition duration-200 ease-in-out"
+               className=" bg-gradient-to-r from-teal-400 to-blue-500 text-white py-3 px-6 rounded-lg font-semibold 
+                         hover:from-teal-500 hover:to-blue-600 transition-all duration-300 shadow-lg hover:shadow-xl"
               >
                 {loading ? "Updating..." : "Update Profile"}
               </button>

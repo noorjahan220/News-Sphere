@@ -71,7 +71,7 @@ const MyArticlePage = () => {
     };
 
     return (
-        <div className="pt-24 px-4 pb-20">
+        <div className="pt-24 px-4 pb-20 min-h-screen">
             <h1 className="text-3xl font-bold text-center mb-6">My Articles</h1>
             
             <div className="overflow-x-auto bg-white shadow-lg rounded-lg p-6">

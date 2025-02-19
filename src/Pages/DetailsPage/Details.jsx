@@ -29,7 +29,7 @@ const Details = () => {
     <div className="max-w-7xl mx-auto py-12 px-6 lg:px-8">
       {/* Article Card */}
       <div
-        className={`card shadow-lg ${article.isPremium ? 'bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500' : 'bg-white'} transition-all duration-300 ease-in-out rounded-md`}
+        className={`card shadow-lg transition-all duration-300 ease-in-out rounded-md ${article.isPremium ? 'border-b-4 border-gold' : 'bg-white'}`}
       >
         {/* Image Section */}
         <figure className="w-full h-96">

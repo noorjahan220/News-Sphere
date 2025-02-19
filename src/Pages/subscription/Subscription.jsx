@@ -52,13 +52,13 @@ const Subscription = () => {
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-6">
       <div className="w-full max-w-4xl">
         {/* Banner Section */}
-        <div className="bg-gradient-to-r from-blue-600 to-indigo-700 text-white text-center py-12 rounded-t-xl shadow-lg mb-6">
+        <div className="bg-gradient-to-r from-teal-400 to-blue-500 text-white text-center py-12 rounded-t-xl shadow-lg mb-6">
           <h1 className="text-4xl font-bold sm:text-5xl">Upgrade to Premium</h1>
           <p className="text-md sm:text-lg mt-4">Unlock exclusive content and features with a premium subscription!</p>
           <div className="mt-6">
-            <button className="bg-yellow-500 hover:bg-yellow-600 text-gray-800 py-2 px-6 rounded-lg font-semibold transition-all duration-300">
-              Get Started
-            </button>
+            <span className='font-extrabold text-xl'> Get Started</span>
+             
+            
           </div>
         </div>
 
@@ -87,7 +87,8 @@ const Subscription = () => {
 
           <button
             onClick={handleSubscription}
-            className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg font-medium transition-colors"
+            className=" bg-gradient-to-r from-teal-400 to-blue-500 text-white py-3 px-6 rounded-lg font-semibold 
+                         hover:from-teal-500 hover:to-blue-600 transition-all duration-300 shadow-lg hover:shadow-xl"
           >
             Choose Plan
           </button>
