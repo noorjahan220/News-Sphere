@@ -24,10 +24,13 @@ const RecentArticles = () => {
 
   return (
     <div className="relative py-12">
-      <div className="mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-2xl font-semibold text-gray-800 dark:text-white mb-6">
-          Recent Articles
-        </h2>
+      <div className="mx-auto px-4 mb sm:px-6 lg:px-8">
+      <div className="text-center mb-8 md:mb-12">
+          <h2 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-teal-400 to-blue-500 bg-clip-text text-transparent">
+           Recent Articles
+          </h2>
+          <div className="mt-3 h-1 w-20 sm:w-24 bg-gradient-to-r from-teal-400 to-blue-500 mx-auto rounded-full" />
+        </div>
         {loading ? (
           <div className="flex justify-center items-center py-12">
             <div className="border-t-4 border-teal-500 w-16 h-16 border-solid rounded-full animate-spin" />

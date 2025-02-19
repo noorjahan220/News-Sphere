@@ -27,7 +27,7 @@ const AllPublishers = () => {
     <div className="relative py-8 md:py-16">
       <div className=" mx-auto ">
         <div className="text-center mb-8 md:mb-12">
-          <h2 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-teal-400 to-blue-500 bg-clip-text text-transparent">
+          <h2 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-teal-400 to-blue-500 bg-clip-text text-transparent">
             Our Publishers
           </h2>
           <div className="mt-3 h-1 w-20 sm:w-24 bg-gradient-to-r from-teal-400 to-blue-500 mx-auto rounded-full" />
