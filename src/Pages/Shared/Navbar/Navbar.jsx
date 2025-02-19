@@ -46,9 +46,9 @@ const Navbar = () => {
   }, []);
 
   return (
-    <header className="sticky top-0 z-50 bg-[#56021F] text-white shadow-lg">
+    <header className="sticky top-0 z-50 bg-gradient-to-r from-teal-600 to-blue-700 text-white shadow-lg">
       <div className="container mx-auto flex justify-between items-center px-6 py-3">
-        <Link to="/" className="text-2xl font-extrabold text-yellow-400">NewsSphere</Link>
+        <Link to="/" className="text-2xl font-extrabold text-white">NewsSphere</Link>
 
         <nav className="hidden lg:flex space-x-6 text-base font-semibold">
           <Link to="/" className="hover:text-yellow-400">Home</Link>
@@ -87,8 +87,12 @@ const Navbar = () => {
 
           {!user && (
             <div className="hidden lg:flex space-x-3">
-              <Link to="/login" className="bg-[#7D1C4A] px-3 py-1 rounded-lg hover:bg-[#9A275F]">Login</Link>
-              <Link to="/signup" className="bg-[#7D1C4A] px-3 py-1 rounded-lg hover:bg-[#9A275F]">Register</Link>
+              <Link to="/login" className="border-2 border-teal-500 px-3 py-1 rounded-lg text-white hover:bg-teal-500 hover:text-white transition-colors">
+                Login
+              </Link>
+              <Link to="/signup" className="border-2 border-teal-500 px-3 py-1 rounded-lg text-white hover:bg-teal-500 hover:text-white transition-colors">
+                Register
+              </Link>
             </div>
           )}
 
@@ -99,7 +103,7 @@ const Navbar = () => {
       </div>
 
       {isDrawerOpen && <div className="fixed inset-0 bg-black bg-opacity-50 z-40" onClick={() => setIsDrawerOpen(false)}></div>}
-      <aside className={`fixed top-0 left-0 h-full w-64 bg-[#7D1C4A] text-white transform ${isDrawerOpen ? 'translate-x-0' : '-translate-x-full'} transition-transform ease-in-out duration-300 z-50`}>
+      <aside className={`fixed top-0 left-0 h-full w-64 bg-[#9A275F] text-white transform ${isDrawerOpen ? 'translate-x-0' : '-translate-x-full'} transition-transform ease-in-out duration-300 z-50`}>
         <button className="absolute top-4 right-4 text-white" onClick={() => setIsDrawerOpen(false)}>
           <FiX size={28} />
         </button>

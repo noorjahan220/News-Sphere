@@ -4,11 +4,9 @@ import Banner from '../Banner/Banner';
 import AllPublishers from '../AllPublishers/AllPublishers';
 import Statistics from '../Statistics/Statistics';
 import Plans from '../Plans/Plans';
-
 import LatestNews from '../LatestNews/LatestNews';
 import NewsLetter from '../NewsLetter/NewsLetter';
 import RecentArticles from '../RecentArticles/RecentArticles';
-
 
 const Home = () => {
   const [showModal, setShowModal] = useState(false);
@@ -19,18 +17,38 @@ const Home = () => {
     trendingNews: [
       { headline: "New Government Policy Affects Small Businesses" },
       { headline: "Groundbreaking Discovery in Space Exploration" },
-      { headline: "Stock Market Hits Record High" }
+      { headline: "Stock Market Hits Record High" },
+      { headline: "Global Water Crisis: Solutions in Sight?" },
+      { headline: "Tech Industry Faces Major Layoffs Amid Economic Uncertainty" },
+      { headline: "Massive Earthquake Strikes Off the Coast of Japan" }
     ],
     topStories: {
       title: "Climate Change: How It's Impacting Our Future",
-      summary: "A comprehensive look at the latest research and global reactions to the climate crisis."
+      summary: "A comprehensive look at the latest research and global reactions to the climate crisis. How nations are responding, and the long-term impact on the planet's ecosystems.",
+      additionalStories: [
+        {
+          headline: "Wildfires Rage Across Australia: Thousands Evacuated",
+          summary: "Severe bushfires have caused unprecedented damage in Australia, forcing thousands of people to evacuate their homes."
+        },
+        {
+          headline: "Carbon Emissions Continue to Rise Despite International Agreements",
+          summary: "Despite global efforts to reduce carbon emissions, reports show an alarming increase in global carbon output."
+        },
+        {
+          headline: "Sustainable Energy: A Step Towards Solving Climate Crisis",
+          summary: "Exploring how solar, wind, and other renewable energies are becoming crucial in mitigating climate change."
+        }
+      ]
     },
     dailyHeadlines: {
       headline: "Global Economic Forecast for 2025",
       articles: [
-        { title: "Impact of Inflation on Global Markets" },
-        { title: "How Unemployment Rates Are Shaping Recovery" },
-        { title: "The Role of Government Policy in Economic Growth" }
+       
+        { title: "How Unemployment Rates Are Shaping Recovery", summary: "A deep dive into the current state of global unemployment and its influence on the economic recovery process." },
+        { title: "The Role of Government Policy in Economic Growth", summary: "Analyzing how government interventions are either helping or hindering economic growth across various nations." },
+        { title: "Digital Currency: The Future of Finance?", summary: "Exploring the rise of digital currencies and their potential to revolutionize the global economy." },
+        { title: "Supply Chain Disruptions: What Lies Ahead", summary: "Global supply chain disruptions continue to affect industries, causing delays and increased costs for businesses and consumers." },
+       
       ]
     }
   };
@@ -56,14 +74,14 @@ const Home = () => {
       {/* Main Content */}
       <div className=" mx-auto ">
         <Banner />
-        <RecentArticles/>
+        <RecentArticles />
         <AllPublishers />
         <Statistics />
         <Plans />
         
-        
         {newsData && <LatestNews newsData={newsData} />}
-        <NewsLetter/>      </div>
+        <NewsLetter />
+      </div>
 
       {/* Subscription Modal */}
       {showModal && (

@@ -21,10 +21,11 @@ const NewsLetter = () => {
                     />
                     <button
                         type="submit"
-                        className="bg-gradient-to-r from-teal-500 to-teal-600 text-white py-2 px-6 rounded-lg shadow-lg hover:from-teal-600 hover:to-teal-700 transition duration-300"
+                        className="border-2 border-teal-500 text-teal-500 py-2 px-6 rounded-lg shadow-lg hover:bg-teal-500 hover:text-white transition duration-300"
                     >
                         Subscribe
                     </button>
+
                 </form>
             </div>
         </section>

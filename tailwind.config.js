@@ -5,7 +5,10 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        gold: '#FFD700', // Or any other gold shade you prefer
+      },},
   },
   plugins: [
     require('daisyui'),

@@ -28,7 +28,7 @@ const Statistics = () => {
 
   if (isLoading) {
     return (
-      <div className="max-w-7xl mx-auto px-4 py-8">
+      <div className=" mx-auto px-4 py-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {[...Array(3)].map((_, index) => (
             <div key={index} className="animate-pulse bg-white dark:bg-gray-700 p-6 rounded-xl shadow-lg">
@@ -50,7 +50,7 @@ const Statistics = () => {
   }
 
   return (
-    <div className="relative py-16 bg-gradient-to-br from-teal-50 to-blue-50 dark:from-gray-800 dark:to-gray-900">
+    <div className="relative py-16 ">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-4xl font-bold bg-gradient-to-r from-teal-400 to-blue-500 bg-clip-text text-transparent">
