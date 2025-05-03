@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
-import { useNavigate } from 'react-router-dom'; // Import the useNavigate hook
+import { FiArrowRight, FiGrid } from 'react-icons/fi';
 
 const AllPublishers = () => {
   const [publishers, setPublishers] = useState([]);
   const [loading, setLoading] = useState(true);
   const axiosSecure = useAxiosSecure();
-  const navigate = useNavigate(); // Initialize the useNavigate hook
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchPublishers = async () => {
@@ -23,66 +23,91 @@ const AllPublishers = () => {
     fetchPublishers();
   }, [axiosSecure]);
 
+  const LoadingIndicator = () => (
+    <div className="flex justify-center items-center py-16">
+      <div className="relative w-16 h-16">
+        <div className="absolute inset-0 border-4 border-zinc-700 rounded-full"></div>
+        <div className="absolute inset-0 border-t-4 border-amber-500 rounded-full animate-spin"></div>
+        <div className="absolute inset-0 flex items-center justify-center">
+          <span className="text-xs font-bold text-amber-500">LOADING</span>
+        </div>
+      </div>
+    </div>
+  );
+
+  const handleViewProfile = (publisherId) => {
+    navigate(`/publisher/${publisherId}`);
+  };
+
   return (
-    <div className="relative py-8 md:py-16">
-      <div className=" mx-auto ">
-        <div className="text-center mb-8 md:mb-12">
-          <h2 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-teal-400 to-blue-500 bg-clip-text text-transparent">
-            Our Publishers
-          </h2>
-          <div className="mt-3 h-1 w-20 sm:w-24 bg-gradient-to-r from-teal-400 to-blue-500 mx-auto rounded-full" />
+    <section className="bg-zinc-900 py-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Section Header */}
+        <div className="flex flex-col items-center mb-12">
+          <div className="flex items-center mb-4">
+            <FiGrid className="text-amber-500 mr-3 text-xl" />
+            <h2 className="text-3xl font-bold text-white tracking-tight">Our Publishers</h2>
+          </div>
+          <div className="w-24 h-1 bg-gradient-to-r from-zinc-800 via-amber-500 to-zinc-800"></div>
+          <p className="mt-4 text-gray-400 text-center max-w-2xl">
+            Meet the leading voices behind the stories that matter
+          </p>
         </div>
 
         {loading ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {[...Array(6)].map((_, index) => (
-              <div key={index} className="animate-pulse">
-                <div className="aspect-square bg-gray-200 dark:bg-gray-600 rounded-2xl" />
-                <div className="h-4 bg-gray-200 dark:bg-gray-600 rounded mt-4 mx-auto w-3/4" />
-                <div className="h-3 bg-gray-200 dark:bg-gray-600 rounded mt-2 mx-auto w-1/2" />
-              </div>
-            ))}
-          </div>
+          <LoadingIndicator />
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-1 ">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {publishers.map((publisher) => (
               <div
                 key={publisher._id}
-                className=" bg-white w-[65%] dark:bg-gray-800 rounded-xl p-4 shadow-md hover:shadow-lg transition-shadow duration-300"
+                className="group bg-zinc-800 rounded-lg overflow-hidden border border-zinc-700 shadow-lg transition-all duration-300 hover:shadow-2xl hover:border-amber-600/50 hover:translate-y-[-4px]"
               >
-                <div className=" overflow-hidden rounded-xl">
-                  <img
-                    className="w-[80%] object-cover"
-                    src={publisher.logo}
-                    alt={publisher.name}
-                  />
+                {/* Publisher Logo */}
+                <div className="p-6 flex justify-center bg-zinc-900 border-b border-zinc-700">
+                  {publisher.logo ? (
+                    <img
+                      src={publisher.logo}
+                      alt={publisher.name}
+                      className="h-24 object-contain"
+                    />
+                  ) : (
+                    <div className="w-24 h-24 rounded-full bg-zinc-800 flex items-center justify-center border-2 border-amber-500">
+                      <span className="text-3xl font-bold text-amber-500">
+                        {publisher.name?.charAt(0) || 'P'}
+                      </span>
+                    </div>
+                  )}
                 </div>
 
-                <div className="px-2 pb-2">
-                  <h3 className="text-lg font-semibold text-gray-800 dark:text-white truncate">
+                {/* Info */}
+                <div className="p-5">
+                  <h3 className="text-lg font-bold text-white mb-1 group-hover:text-amber-400 transition-colors duration-300">
                     {publisher.name}
                   </h3>
-                  <p className="text-teal-500 dark:text-teal-400 text-sm truncate mb-2">
-                    {publisher.email}
-                  </p>
-                  <div className="flex justify-between items-center">
-                    <span className="px-3 py-1 bg-teal-100 dark:bg-teal-900 text-teal-600 dark:text-teal-100 rounded-full text-sm">
-                      {publisher.articlesCount || 0} Articles
+                  <p className="text-gray-400 text-sm mb-4">{publisher.email}</p>
+
+                  <div className="flex justify-between items-center mb-6 text-sm text-gray-400">
+                    <span>Articles Published</span>
+                    <span className="bg-zinc-900 px-3 py-1 rounded-full text-amber-500 font-semibold">
+                      {publisher.articlesCount || 0}
                     </span>
-                    <button
-                      onClick={() => navigate('/profile')} // Use the navigate function for routing
-                      className="text-sm text-gray-500 dark:text-gray-300 hover:text-teal-500 transition-colors"
-                    >
-                      View Profile →
-                    </button>
                   </div>
+
+                  <button
+                    onClick={() => handleViewProfile(publisher._id)}
+                    className="w-full flex items-center justify-center bg-zinc-700 hover:bg-amber-600 text-white py-2 rounded transition-colors duration-300 border border-zinc-600 hover:border-amber-700"
+                  >
+                    <span className="mr-2">View Profile</span>
+                    <FiArrowRight className="group-hover:translate-x-1 transition-transform duration-300" />
+                  </button>
                 </div>
               </div>
             ))}
           </div>
         )}
       </div>
-    </div>
+    </section>
   );
 };
 
