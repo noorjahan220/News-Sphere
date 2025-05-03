@@ -2,133 +2,190 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { ChatBubbleLeftRightIcon, UsersIcon, HeartIcon, ChartBarIcon } from '@heroicons/react/24/outline';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay, Pagination } from 'swiper/modules';
 import 'swiper/css';
-import 'swiper/css/pagination'; // Optional, if using pagination
-import 'swiper/css/navigation'; // Optional, if using navigation
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
 
 const LatestNews = ({ newsData = {} }) => {
   const { trendingNews = [], topStories = null, dailyHeadlines = null } = newsData;
 
   return (
-    <section className="py-16 px-4 lg:px-8">
-      {/* Trending News Section */}
-      <div className=" rounded-xl  p-6 mb-8">
-        <div className="flex items-center gap-3 mb-4">
-          <ChatBubbleLeftRightIcon 
-            className="w-6 h-6 text-blue-600" 
-            aria-label="Chat icon for trending news" 
-          />
-          <h3 className="text-xl font-semibold">Trending News</h3>
-        </div>
-        {trendingNews.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {trendingNews.map((news, index) => (
-              <div key={index} className="bg-white rounded-lg shadow-lg p-6 space-y-4 flex flex-col justify-between">
-                <h4 className="text-lg font-semibold text-gray-800">{news.headline}</h4>
-                <div className="flex items-center justify-between">
-                  <button className="text-teal-500 hover:text-teal-600">Read More</button>
-                  <HeartIcon className="w-5 h-5 text-red-500" />
-                </div>
-              </div>
-            ))}
+    <section className="bg-zinc-900 py-16 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto">
+        {/* Section Header */}
+        <div className="flex flex-col items-center mb-12">
+          <div className="flex items-center mb-4">
+            <ChartBarIcon className="text-amber-500 mr-3 text-xl" />
+            <h2 className="text-3xl font-bold text-white tracking-tight">Latest News</h2>
           </div>
-        ) : (
-          <p className="text-gray-500">No trending news at the moment.</p>
-        )}
-      </div>
-
-      {/* Top Stories Section */}
-      <div className=" rounded-xl  p-6 mb-8">
-  <div className="flex items-center gap-3 mb-4">
-    <UsersIcon 
-      className="w-6 h-6 text-green-600" 
-      aria-label="Users icon for top stories" 
-    />
-    <h3 className="text-xl font-semibold">Top Stories</h3>
-  </div>
-  {topStories && topStories.title ? (
-    <div className="bg-white rounded-lg shadow-lg p-6 space-y-4 flex flex-col justify-between">
-      <p className="font-semibold text-gray-800">{topStories.title}</p>
-      <p className="text-gray-600">{topStories.summary}</p>
-      {topStories.additionalStories && topStories.additionalStories.length > 0 && (
-        <div className="space-y-4 mt-4">
-          {topStories.additionalStories.map((story, index) => (
-            <div key={index} className="bg-white rounded-lg shadow-lg p-4">
-              <p className="font-semibold text-gray-800">{story.headline}</p>
-              <p className="text-gray-600">{story.summary}</p>
-            </div>
-          ))}
-        </div>
-      )}
-    </div>
-  ) : (
-    <p className="text-gray-500">No top stories available.</p>
-  )}
-</div>
-
-      {/* Daily Headlines Section (Slider) */}
-      <div className=" rounded-xl  p-6">
-        <div className="flex items-center gap-3 mb-4">
-          <ChartBarIcon 
-            className="w-6 h-6 text-purple-600" 
-            aria-label="Chart icon for daily headlines" 
-          />
-          <h3 className="text-xl font-semibold">Daily Headlines</h3>
+          <div className="w-24 h-1 bg-gradient-to-r from-zinc-800 via-amber-500 to-zinc-800"></div>
+          <p className="mt-4 text-gray-400 text-center max-w-2xl">
+            Stay updated with the most recent and important news stories
+          </p>
         </div>
 
-        {dailyHeadlines?.articles?.length > 0 ? (
-          <Swiper
-            loop={true}
-            autoplay={{ delay: 3000 }}
-            spaceBetween={20}
-            slidesPerView={1}
-            breakpoints={{
-              640: {
-                slidesPerView: 2,
-              },
-              1024: {
-                slidesPerView: 3,
-              },
-            }}
-            className="mySwiper"
-          >
-            {dailyHeadlines.articles.map((article, index) => (
-              <SwiperSlide key={index} className="bg-white rounded-lg shadow-lg p-6 space-y-4">
-                <p className="font-semibold text-gray-800">{article.title}</p>
-                <div className="flex items-center justify-between">
-                  <button className="text-teal-500 hover:text-teal-600">Read More</button>
-                  
+        {/* Trending News Section */}
+        <div className="bg-zinc-800 rounded-xl p-6 mb-8 border border-zinc-700 shadow-lg">
+          <div className="flex items-center gap-3 mb-6">
+            <ChatBubbleLeftRightIcon 
+              className="w-6 h-6 text-amber-500" 
+              aria-label="Trending news icon" 
+            />
+            <h3 className="text-xl font-semibold text-white">Trending Now</h3>
+          </div>
+          
+          {trendingNews.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {trendingNews.map((news, index) => (
+                <div 
+                  key={index} 
+                  className="bg-zinc-700 rounded-lg p-6 space-y-4 flex flex-col justify-between border border-zinc-600 hover:border-amber-500/50 transition-all duration-300 hover:shadow-lg"
+                >
+                  <h4 className="text-lg font-semibold text-white">{news.headline}</h4>
+                  <div className="flex items-center justify-between pt-2">
+                    <button 
+                      className="text-amber-500 hover:text-amber-400 font-medium transition-colors duration-300"
+                      onClick={() => window.location.href = news.url || '#'}
+                    >
+                      Read More
+                    </button>
+                    <div className="flex items-center space-x-1">
+                      <HeartIcon className="w-5 h-5 text-red-500" />
+                      <span className="text-gray-400 text-sm">{news.likes || 0}</span>
+                    </div>
+                  </div>
                 </div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        ) : (
-          <p className="text-gray-500">No daily headlines available at the moment.</p>
-        )}
+              ))}
+            </div>
+          ) : (
+            <div className="bg-zinc-700/50 rounded-lg p-8 text-center border border-zinc-600">
+              <p className="text-gray-400">No trending news at the moment. Check back later!</p>
+            </div>
+          )}
+        </div>
+
+        {/* Top Stories Section */}
+        <div className="bg-zinc-800 rounded-xl p-6 mb-8 border border-zinc-700 shadow-lg">
+          <div className="flex items-center gap-3 mb-6">
+            <UsersIcon 
+              className="w-6 h-6 text-amber-500" 
+              aria-label="Top stories icon" 
+            />
+            <h3 className="text-xl font-semibold text-white">Top Stories</h3>
+          </div>
+          
+          {topStories ? (
+            <div className="space-y-6">
+              <div className="bg-zinc-700 rounded-lg p-6 border border-zinc-600">
+                <h4 className="text-xl font-bold text-white mb-3">{topStories.title}</h4>
+                <p className="text-gray-400 mb-4">{topStories.summary}</p>
+                <button 
+                  className="text-amber-500 hover:text-amber-400 font-medium transition-colors duration-300"
+                  onClick={() => window.location.href = topStories.url || '#'}
+                >
+                  Continue Reading
+                </button>
+              </div>
+              
+              {topStories.additionalStories?.length > 0 && (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {topStories.additionalStories.map((story, index) => (
+                    <div key={index} className="bg-zinc-700 rounded-lg p-4 border border-zinc-600 hover:border-amber-500/50 transition-all duration-300">
+                      <h5 className="font-semibold text-white mb-2">{story.headline}</h5>
+                      <p className="text-gray-400 text-sm">{story.summary}</p>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          ) : (
+            <div className="bg-zinc-700/50 rounded-lg p-8 text-center border border-zinc-600">
+              <p className="text-gray-400">No top stories available right now.</p>
+            </div>
+          )}
+        </div>
+
+        {/* Daily Headlines Section */}
+        <div className="bg-zinc-800 rounded-xl p-6 border border-zinc-700 shadow-lg">
+          <div className="flex items-center gap-3 mb-6">
+            <ChartBarIcon 
+              className="w-6 h-6 text-amber-500" 
+              aria-label="Daily headlines icon" 
+            />
+            <h3 className="text-xl font-semibold text-white">Daily Headlines</h3>
+          </div>
+          
+          {dailyHeadlines?.articles?.length > 0 ? (
+            <Swiper
+              modules={[Autoplay, Pagination]}
+              loop={true}
+              autoplay={{ delay: 5000, disableOnInteraction: false }}
+              pagination={{ clickable: true }}
+              spaceBetween={20}
+              slidesPerView={1}
+              breakpoints={{
+                640: { slidesPerView: 2 },
+                1024: { slidesPerView: 3 },
+              }}
+              className="pb-10" // Add padding for pagination dots
+            >
+              {dailyHeadlines.articles.map((article, index) => (
+                <SwiperSlide key={index}>
+                  <div className="bg-zinc-700 rounded-lg p-6 h-full border border-zinc-600 hover:border-amber-500/50 transition-all duration-300">
+                    <h4 className="font-semibold text-white mb-3">{article.title}</h4>
+                    {article.description && (
+                      <p className="text-gray-400 text-sm mb-4">{article.description.substring(0, 100)}...</p>
+                    )}
+                    <button 
+                      className="text-amber-500 hover:text-amber-400 font-medium transition-colors duration-300"
+                      onClick={() => window.location.href = article.url || '#'}
+                    >
+                      Read Full Story
+                    </button>
+                  </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          ) : (
+            <div className="bg-zinc-700/50 rounded-lg p-8 text-center border border-zinc-600">
+              <p className="text-gray-400">Daily headlines will be updated soon.</p>
+            </div>
+          )}
+        </div>
       </div>
     </section>
   );
 };
 
-// Prop Validation
 LatestNews.propTypes = {
   newsData: PropTypes.shape({
     trendingNews: PropTypes.arrayOf(
       PropTypes.shape({
-        headline: PropTypes.string.isRequired
+        headline: PropTypes.string.isRequired,
+        url: PropTypes.string,
+        likes: PropTypes.number
       })
     ),
-    topStories: PropTypes.arrayOf(
-      PropTypes.shape({
-        title: PropTypes.string.isRequired,
-        summary: PropTypes.string.isRequired
-      })
-    ),
+    topStories: PropTypes.shape({
+      title: PropTypes.string.isRequired,
+      summary: PropTypes.string.isRequired,
+      url: PropTypes.string,
+      additionalStories: PropTypes.arrayOf(
+        PropTypes.shape({
+          headline: PropTypes.string.isRequired,
+          summary: PropTypes.string.isRequired
+        })
+      )
+    }),
     dailyHeadlines: PropTypes.shape({
-      headline: PropTypes.string.isRequired,
-      articles: PropTypes.arrayOf(PropTypes.shape({
-        title: PropTypes.string.isRequired
-      })).isRequired
+      articles: PropTypes.arrayOf(
+        PropTypes.shape({
+          title: PropTypes.string.isRequired,
+          description: PropTypes.string,
+          url: PropTypes.string
+        })
+      ).isRequired
     })
   })
 };
