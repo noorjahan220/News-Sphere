@@ -5,61 +5,82 @@ import { Elements } from '@stripe/react-stripe-js';
 import CheckoutForm from './CheckoutForm';
 import Swal from 'sweetalert2';
 
-// TODO: add publishable key
-const stripePromise = loadStripe(import.meta.env.VITE_Payment_Gateway_Pk); // Replace with your Stripe publishable key
+const stripePromise = loadStripe(import.meta.env.VITE_Payment_Gateway_Pk);
 
 const PaymentPage = () => {
     const location = useLocation();
     const { state } = location;
-    const { selectedPeriod, price } = state || {}; // Extract subscription details
+    const { selectedPeriod, price } = state || {};
     const navigate = useNavigate();
 
-    // Function to format selectedPeriod into readable text
     const formatPeriod = (period) => {
         switch (period) {
             case '1':
-                return '1 Minute';
+                return '1 Month';
             case '5':
-                return '5 Days';
+                return '5 Months';
             case '10':
-                return '10 Days';
+                return '10 Months';
             default:
-                return 'Unknown Period'; // Fallback for invalid or missing periods
+                return 'Unknown Period';
         }
     };
 
     const handlePaymentSuccess = () => {
-        // Show a SweetAlert success message
         Swal.fire({
             title: 'Payment Successful!',
             text: 'Your subscription has been activated successfully.',
             icon: 'success',
             confirmButtonText: 'Okay',
+            background: '#1f2937',
+            color: '#f3f4f6',
+            confirmButtonColor: '#d97706',
         }).then(() => {
-            navigate('/'); // Redirect to the home page or any other page after success
+            navigate('/');
         });
     };
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-6">
-            <div className="max-w-lg w-full bg-white shadow-lg rounded-lg p-8 space-y-6">
-                <h1 className="text-3xl font-bold text-center text-gray-800 mb-4">Complete Your Payment</h1>
+        <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-zinc-900 to-zinc-800 p-6">
+            <div className="max-w-lg w-full bg-zinc-800 shadow-lg rounded-xl p-8 space-y-6 border border-zinc-700">
+                <h1 className="text-3xl font-bold text-center text-white mb-4">
+                    <span className="bg-clip-text text-transparent bg-gradient-to-r from-amber-500 to-amber-300">
+                        Complete Payment
+                    </span>
+                </h1>
 
                 {price ? (
                     <>
-                        <p className="text-lg text-gray-700 mb-4">
-                            You have selected a subscription for <strong>{formatPeriod(selectedPeriod)}</strong>.
-                        </p>
-                        <p className="text-xl font-semibold text-gray-800 mb-6">
-                            Amount to Pay: <span className="text-blue-600">${price}</span>
-                        </p>
+                        <div className="bg-zinc-700 p-6 rounded-lg border border-zinc-600 mb-6">
+                            <p className="text-lg text-gray-300 mb-2">
+                                Subscription: <span className="font-semibold text-amber-400">{formatPeriod(selectedPeriod)}</span>
+                            </p>
+                            <p className="text-xl font-semibold text-white">
+                                Total Amount: <span className="text-amber-400">${price}</span>
+                            </p>
+                        </div>
 
-                        <Elements stripe={stripePromise}>
-                            <CheckoutForm price={price} onPaymentSuccess={handlePaymentSuccess} />
-                        </Elements>
+                        <div className="bg-zinc-700 p-6 rounded-lg border border-zinc-600">
+                            <Elements stripe={stripePromise}>
+                                <CheckoutForm 
+                                    price={price} 
+                                    onPaymentSuccess={handlePaymentSuccess} 
+                                />
+                            </Elements>
+                        </div>
                     </>
                 ) : (
-                    <p className="text-red-500 font-medium text-center">No subscription details found. Please go back and select a plan.</p>
+                    <div className="bg-zinc-700 p-4 rounded-lg border border-amber-500/30">
+                        <p className="text-amber-400 font-medium text-center">
+                            No subscription details found. Please select a plan first.
+                        </p>
+                        <button
+                            onClick={() => navigate('/subscription')}
+                            className="mt-4 w-full bg-amber-600 text-white py-2 rounded-lg font-medium hover:bg-amber-700 transition-colors"
+                        >
+                            View Plans
+                        </button>
+                    </div>
                 )}
             </div>
         </div>

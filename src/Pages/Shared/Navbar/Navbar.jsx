@@ -130,7 +130,7 @@ const Navbar = () => {
           </nav>
 
           {/* User Section - Fixed Profile Display */}
-          <div className="flex items-center space-x-4 flex-shrink-0">
+          <div className="flex items-center space-x-2 flex-shrink-0">
             {user ? (
               <div className="relative" ref={dropdownRef}>
                 <div
