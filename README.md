@@ -9,7 +9,6 @@
 
 ## 🔗 Live Links
 - **Live Website:** [Click Here to Visit](#) *(Add your link here)*
-- **Server API:** [Server Link](#) *(Add your link here)*
 
 ## 📖 Project Overview
 Welcome to the **Newspaper FullStack Website**! This platform serves as a comprehensive news aggregation website designed to provide trending articles, premium content features, and a seamless user experience. 
