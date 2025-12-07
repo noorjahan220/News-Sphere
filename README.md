@@ -1,135 +1,152 @@
-# 📰 Newspaper FullStack Website
+# Newspaper FullStack Website
 
-Welcome to the **Newspaper FullStack Website**! This platform serves as a comprehensive news aggregation website with trending articles, premium features, and a seamless user experience. Here's an overview of the project.
+<!-- Banner Image with fixed width to fit screen -->
+<div align="center">
+  <img src="https://i.ibb.co.com/1YBJqPbF/Screenshot-478.png" alt="Newspaper Website Banner" width="100%" style="border-radius: 10px;">
+</div>
 
----
+<br/>
+
+## 🔗 Live Links
+- **Live Website:** [Click Here to Visit](#) *(Add your link here)*
+- **Server API:** [Server Link](#) *(Add your link here)*
+
+## 📖 Project Overview
+Welcome to the **Newspaper FullStack Website**! This platform serves as a comprehensive news aggregation website designed to provide trending articles, premium content features, and a seamless user experience. 
+
+It bridges the gap between general readers and premium subscribers, offering exclusive content, advanced dashboards for admins, and interactive data visualization.
+
+## 🔐 Admin Credentials (For Testing)
+Use these credentials to access the Admin Dashboard features:
+
+| Role | Email | Password |
+| :--- | :--- | :--- |
+| **Admin** | `aktermeem220@gmail.com` | `12345Aa@` |
 
 ## 🌟 Key Features
 
-1. **📱 Responsive Design**: Fully responsive for mobile, tablet, and desktop views.
-2. **🔒 Authentication**: Email/password-based authentication with error handling and social login (e.g., Google).
-3. **🛡️ JWT Security**: Implemented JWT for secure access to private routes, preventing unauthorized access.
-4. **🏠 Dynamic Home Page**:
-   - 📰 Trending Articles Slider (based on view count).
-   - 📜 Publisher List.
-   - 📊 User and Premium User Statistics with `react-countup`.
-   - 💳 Subscription Plans Section.
-   - 🌟 Additional unique sections for enhanced user engagement.
-5. **💎 Subscription System**:
-   - 🔽 Dropdown for subscription periods (1 minute, 5 days, 10 days).
-   - 🌟 Premium users enjoy exclusive content and features.
-   - 🔄 Automatic reversion to normal user after subscription expiry.
-6. **✍️ Article Management**:
-   - Add articles with rich features (title, image, tags, description).
-   - Admin approval required for publishing.
-   - ⭐ Premium articles with exclusive design and access.
-7. **📊 Dashboard (Admin Only)**:
-   - Manage users and articles in tabular format.
-   - Approve, decline, or make articles premium.
-   - Add publishers dynamically.
-   - 📈 Interactive charts using `react-google-charts`.
-8. **🔄 Pagination**: Implemented for admin dashboard pages (e.g., users, articles).
-9. **🔔 Modal Triggers**:
-   - Homepage modal for subscriptions after 10 seconds.
-   - Modal for declined articles with reasons.
-10. **🚫 404 Page**: Custom not-found page for undefined routes.
+### 🏠 User Experience & Interface
+*   **Responsive Design:** Fully optimized for mobile, tablet, and desktop views.
+*   **Dynamic Home Page:** 
+    *   Trending Articles Slider (sorted by view count).
+    *   Live statistics using `react-countup`.
+    *   Subscription plans section.
+*   **Smart Engagement:** A unique modal appears after 10 seconds to encourage subscriptions.
 
----
+### 💎 Subscription & Premium System
+*   **Tiered Access:** Normal users vs. Premium users.
+*   **Flexible Plans:** Dropdown options for subscription periods (1 minute demo, 5 days, 10 days).
+*   **Auto-Expiry:** System automatically reverts Premium users to Normal status upon expiry.
+*   **Exclusive Content:** Premium articles are locked for non-subscribers with exclusive designs.
+
+### 🛡️ Security & Authentication
+*   **Secure Auth:** Email/password login with error handling + Social Login (Google).
+*   **JWT Protection:** JSON Web Tokens secure private routes and API endpoints.
+*   **Private Routes:** Prevents unauthorized access to premium content and dashboards.
+
+### ✍️ Article Management
+*   **Rich Creation:** Users can add articles with titles, images, tags (multi-select), and descriptions.
+*   **Review Process:** Articles require Admin approval to go live.
+*   **Status Tracking:** Articles are marked as Pending, Approved, or Declined (with reasons).
+
+### 📊 Admin Dashboard
+*   **Management Tables:** View, delete, and manage all users and articles.
+*   **Publisher Management:** Add publishers dynamically with logo uploads.
+*   **Article Control:** Approve/Decline articles or mark them as Premium.
+*   **Data Visualization:** Interactive charts (Pie, Bar, Line) using `react-google-charts` to track publication stats.
 
 ## 🛠️ Tech Stack
 
-### 🖼️ Frontend
-- **⚛️ React.js**: Component-based library for building the UI.
-- **🧭 React Router**: For navigation and route handling.
-- **🔄 TanStack Query**: For efficient data fetching.
-- **🎨 Tailwind CSS**: For styling.
-- **🔽 React Select**: For multi-select dropdowns.
-- **💡 SweetAlert2**: For enhanced notifications.
+| Category | Technologies |
+| :--- | :--- |
+| **Frontend** | React.js, React Router, Tailwind CSS, TanStack Query |
+| **Backend** | Node.js, Express.js, JWT |
+| **Database** | MongoDB (Mongoose) |
+| **Tools** | Firebase Auth, React Select, SweetAlert2, React CountUp |
 
-### 🖥️ Backend
-- **🌐 Node.js**: Server runtime.
-- **🚀 Express.js**: Backend framework.
-- **🛢️ MongoDB**: Database for storing articles, users, and publishers.
-- **🔐 JWT**: For secure authentication.
-- **🌍 CORS**: For managing cross-origin requests.
+## 📦 Dependencies Used
 
----
+### Client-side
+- `react-router-dom`: For navigation.
+- `@tanstack/react-query`: For efficient server-state management.
+- `axios`: For API requests.
+- `react-select`: For multi-select dropdowns in forms.
+- `react-countup`: For animated statistics on the homepage.
+- `react-google-charts`: For admin dashboard analytics.
+- `sweetalert2`: For beautiful alerts and notifications.
+- `firebase`: For user authentication.
+- `stripe` / `react-stripe-js`: (If payment gateway is integrated).
 
-## 🚀 Live Site
-
-🔗 [Live Website](https://news-paper-91c56.web.app)
-
----
-
-## 🔐 Admin Credentials
-
-- **👤 Username**: `aktermeem220@gmail.com`
-- **🔑 Password**: `12345Aa@`
-
----
-
-## 📋 Features for Users
-
-1. **✍️ Add Articles**:
-   - Form to submit articles with title, image, tags, and description.
-   - Multi-select tags using `react-select`.
-   - Publisher dropdown populated dynamically by admin.
-2. **📰 All Articles**:
-   - 🔍 Search and filter articles by title, publisher, and tags.
-   - 👀 View details of articles (if premium, only accessible to subscribed users).
-3. **👤 My Profile**:
-   - View and update user information.
-4. **📂 My Articles**:
-   - Tabular display of user’s articles with options to update or delete.
-   - Status indicators (Pending, Approved, Declined) with decline reasons.
-5. **💎 Premium Articles**:
-   - Access exclusive articles for subscribed users.
-
----
-
-## 🛠️ Features for Admin
-
-1. **📊 Dashboard**:
-   - Sidebar with links to all users, all articles, and add publisher.
-   - Interactive charts for publication statistics (pie, bar, and line charts).
-2. **👥 User Management**:
-   - View all users with options to promote to admin.
-3. **✍️ Article Management**:
-   - Approve, decline (with reasons), delete, or mark articles as premium.
-4. **🏢 Publisher Management**:
-   - Add publishers dynamically with logos uploaded to Cloudinary or imgbb.
-
----
+### Server-side
+- `express`: Backend framework.
+- `cors`: Cross-Origin Resource Sharing.
+- `dotenv`: Environment variable management.
+- `jsonwebtoken`: Security and authentication tokens.
+- `mongoose`: Database modeling.
+- `cookie-parser`: Handling HTTP cookies.
 
 ## 🧪 Challenges & Solutions
+1.  **Private Routes & Reloads:** 
+    *   *Challenge:* keeping a user logged in and authorized during page reloads.
+    *   *Solution:* Implemented JWT verification on the backend and persistent state on the frontend.
+2.  **Subscription Expiry:** 
+    *   *Challenge:* Managing the exact time a user's premium status ends.
+    *   *Solution:* Used a `premiumTaken` timestamp property to calculate duration and auto-revert users.
+3.  **Dynamic Filtering:** 
+    *   *Challenge:* Fast searching and filtering by tags/publishers.
+    *   *Solution:* Optimized backend queries to handle search parameters efficiently.
 
-- **🔒 Private Routes**: Implemented JWT to secure private routes and prevent redirection on page reload.
-- **⏳ Subscription Tracking**:
-  - Used `premiumTaken` property to track subscription periods.
-  - Automated reversion to normal user after subscription expiry.
-- **🔍 Dynamic Filtering and Searching**: Backend handles search and filter queries efficiently.
-- **📱 Responsive Design**: Ensured all pages, including the dashboard, are fully responsive.
+## 💻 How to Run Locally (Step-by-Step)
 
----
+### Prerequisites
+*   Node.js installed.
+*   MongoDB URI.
+*   Firebase Project configuration.
 
-## 💡 Highlights
+### 1. Clone the Repository
+```bash
+git clone https://github.com/yourusername/newspaper-website.git
+cd newspaper-website
+2. Backend Setup
+Go to the server directory:
 
-- 🎉 Unique modal for subscription trigger after 10 seconds of homepage visit.
-- 💬 Sweet alert notifications for all CRUD operations and authentication feedback.
-- 💎 Premium features encouraging users to subscribe for exclusive content.
+Bash
 
----
+cd server
+npm install
+Create a .env file in the server folder:
 
+env
 
+PORT=5000
+DB_USER=your_mongo_user
+DB_PASS=your_mongo_pass
+ACCESS_TOKEN_SECRET=your_jwt_secret
+Start the server:
 
+Bash
 
+npm start
+3. Frontend Setup
+Open a new terminal and go to the client directory:
 
+Bash
 
-# React + Vite
+cd client
+npm install
+Create a .env.local file in the client folder:
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+env
 
-Currently, two official plugins are available:
+VITE_APIKEY=your_firebase_api_key
+VITE_AUTHDOMAIN=your_firebase_auth_domain
+VITE_PROJECTID=your_firebase_project_id
+VITE_STORAGEBUCKET=your_firebase_storage_bucket
+VITE_MESSAGINGSENDERID=your_firebase_sender_id
+VITE_APPID=your_firebase_app_id
+VITE_IMGBB_KEY=your_imgbb_api_key
+Start the client:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Bash
+
+npm run dev
